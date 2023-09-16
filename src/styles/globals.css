@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* --foreground-rgb: 0, 0, 0;
+  --background-start: 70, 150, 192;
+  --background-end-rgb: 255, 255, 255; */
+  /* --canica-skyblue: #2684b7;
+  --canica-purple: #2e3250; */
+  /*   --canica-skyblue: #4696c0 */
+  /* --canica-purple: #545a93; */
+  --canica-skyblue: #179ac6;
+  --canica-purple: #535a9b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --foreground-rgb: 255, 255, 255;
+    --background-start: 70, 150, 192;
+    --background-end-rgb: 0, 0, 0; */
+  }
+}
+
+body {
+  color: #fff;
+  /* background: linear-gradient(to bottom, transparent, #000)
+    var(--canica-skyblue); */
+}
+
+main {
+  /* background: linear-gradient(to bottom, transparent, #000)
+    var(--canica-skyblue); */
+}
+/* .sidebar-article:last-of-type {
+  border: none;
+} */
+
+footer {
+  background: linear-gradient(to bottom, #000, transparent) var(--canica-purple);
+}
