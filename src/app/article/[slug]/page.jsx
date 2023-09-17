@@ -2,11 +2,22 @@ import MainArticle from "@/components/MainArticle";
 import NewsContainer from "@/components/NewsContainer";
 import SideBar from "@/components/Sidebar";
 
-import { connectDB } from "@/utils/mongoose";
+import { getMainArticle } from "@/utils/get-articles";
 
-async function ArticlePage({ params }) {
-  await connectDB();
+export const generateMetadata = async ({ params }) => {
+  const mainArticle = await getMainArticle(params.slug);
 
+  return {
+    title: mainArticle.title,
+    openGraph: {
+      description: mainArticle.body,
+      url: "https://lacanica.ec",
+      siteName: "La Canica",
+    },
+  };
+};
+
+function ArticlePage({ params }) {
   return (
     <main className="bg-cyan-950 py-4">
       <div className="container mx-auto flex">

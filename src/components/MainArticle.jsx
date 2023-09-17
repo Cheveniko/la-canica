@@ -4,17 +4,12 @@ import ArticleInfo from "./ArticleInfo";
 import ArticleTitle from "./ArticleTitle";
 import ShareCard from "./ShareCard";
 
-import Article from "@/models/Article";
+import { getMainArticle } from "@/utils/get-articles";
 
 import { TitleStyles, InfoStyles, BodyStyles } from "@/styles/styles";
 
-const loadMainArticle = async (slug) => {
-  const mainArticle = await Article.findOne({ slug: slug });
-  return mainArticle;
-};
-
 async function MainArticle({ slug, bannerWidth, bannerHeigth }) {
-  const mainArticle = await loadMainArticle(slug);
+  const mainArticle = await getMainArticle(slug);
 
   const { title, body, category, date, img_url } = mainArticle;
   const titleStyle = TitleStyles.main;
@@ -30,6 +25,7 @@ async function MainArticle({ slug, bannerWidth, bannerHeigth }) {
         title={title}
         width={bannerWidth}
         height={bannerHeigth}
+        priority={true}
       />
       <ArticleBody body={body} style={bodyStyle} />
       <ShareCard />

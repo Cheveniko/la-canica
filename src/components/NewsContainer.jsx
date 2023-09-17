@@ -1,14 +1,15 @@
-import Article from "@/models/Article";
 import ArticleCard from "./ArticleCard";
 
-const loadNewsArticles = async () => {
-  const newsArticles = await Article.find({ kind: "news" });
-  const slicednewsArticles = newsArticles.reverse();
-  return slicednewsArticles;
-};
+import { getNewsArticles } from "@/utils/get-articles";
+
+// const loadNewsArticles = async () => {
+//   const newsArticles = await Article.find({ kind: "news" });
+//   const slicednewsArticles = newsArticles.reverse();
+//   return slicednewsArticles;
+// };
 
 async function NewsContainer() {
-  const newsArticles = await loadNewsArticles();
+  const newsArticles = await getNewsArticles();
 
   return (
     <div className="container mx-auto grid grid-cols-4 gap-x-6">

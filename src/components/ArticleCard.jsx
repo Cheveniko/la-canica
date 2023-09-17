@@ -2,6 +2,8 @@ import ArticleBanner from "./ArticleBanner";
 import ArticleInfo from "./ArticleInfo";
 import ArticleTitle from "./ArticleTitle";
 import ArticleBody from "./ArticleBody";
+import LinkArticle from "./LinkArticle";
+
 import {
   TitleStyles,
   InfoStyles,
@@ -9,15 +11,15 @@ import {
   ArticleContainerStyles,
 } from "@/styles/styles";
 
-import Link from "next/link";
-
 function ArticleCard({ article, bannerWidth, bannerHeigth, type }) {
   const { title, body, category, date, img_url, slug } = article;
+
   let titleStyle = null;
   let infoStyle = null;
   let bodyStyle = null;
   let articleContainerStyle = null;
   let showArticleBody = false;
+  let isImagePriority = false;
 
   switch (type) {
     case "hero":
@@ -26,6 +28,7 @@ function ArticleCard({ article, bannerWidth, bannerHeigth, type }) {
       infoStyle = InfoStyles.hero;
       bodyStyle = BodyStyles.hero;
       showArticleBody = true;
+      isImagePriority = true;
       break;
     case "sidebar":
       articleContainerStyle = ArticleContainerStyles.sidebar;
@@ -56,19 +59,20 @@ function ArticleCard({ article, bannerWidth, bannerHeigth, type }) {
   }
 
   return (
-    <Link href={`article/${slug}`}>
-      <div className={articleContainerStyle}>
+    <div className={articleContainerStyle}>
+      <LinkArticle slug={slug}>
         <ArticleBanner
           img_url={img_url}
           title={title}
           width={bannerWidth}
           height={bannerHeigth}
+          priority={isImagePriority}
         />
         <ArticleInfo category={category} date={date} style={infoStyle} />
         <ArticleTitle title={title} style={titleStyle} />
         {showArticleBody && <ArticleBody body={body} style={bodyStyle} />}
-      </div>
-    </Link>
+      </LinkArticle>
+    </div>
   );
 }
 

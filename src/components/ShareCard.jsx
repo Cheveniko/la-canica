@@ -3,7 +3,6 @@ import {
   FaTelegram,
   FaWhatsapp,
   FaXTwitter,
-  FaRegEnvelope,
   FaLink,
   FaFacebook,
 } from "react-icons/fa6";

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-function ArticleBanner({ img_url, title, width, height }) {
+function ArticleBanner({ img_url, title, width, height, priority }) {
   return (
     <>
       <Image
@@ -8,6 +8,7 @@ function ArticleBanner({ img_url, title, width, height }) {
         alt={title}
         width={width}
         height={height}
+        priority={priority}
         className="rounded-xl"
       />
     </>

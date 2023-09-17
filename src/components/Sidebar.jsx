@@ -1,14 +1,8 @@
-import Article from "@/models/Article";
+import { getSidebarArticles } from "@/utils/get-articles";
 import ArticleCard from "./ArticleCard";
 
-const loadSidebarArticles = async () => {
-  const sidebarArticles = await Article.find({ kind: "trending" });
-  const slicedSidebarArticles = sidebarArticles.slice(-2).reverse();
-  return slicedSidebarArticles;
-};
-
 async function SideBar() {
-  const sidebarArticles = await loadSidebarArticles();
+  const sidebarArticles = await getSidebarArticles();
   return (
     <div className="w-1/4 p-4 border border-slate-950 shadow-sm shadow-slate-950 rounded-2xl">
       <h2 className="text-4xl font-bold text-center underline underline-offset-8 decoration-amber-400">

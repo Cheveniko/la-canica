@@ -1,10 +1,8 @@
 import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
-import { connectDB } from "@/utils/mongoose";
 import NewsContainer from "@/components/NewsContainer";
 
-export default async function HomePage() {
-  await connectDB();
+export default function HomePage() {
   return (
     <main className="bg-cyan-950 py-4">
       <div className="container mx-auto flex">

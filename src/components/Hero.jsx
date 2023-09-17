@@ -1,13 +1,14 @@
-import Article from "@/models/Article";
 import ArticleCard from "./ArticleCard";
 
-const loadHeroArticle = async () => {
-  const heroArticle = await Article.findOne({ kind: "main" });
-  return heroArticle;
-};
+import { getHeroArticle } from "@/utils/get-articles";
+
+// const loadHeroArticle = async () => {
+//   const heroArticle = await Article.findOne({ kind: "main" });
+//   return heroArticle;
+// };
 
 async function Hero() {
-  const heroArticle = await loadHeroArticle();
+  const heroArticle = await getHeroArticle();
   return (
     <div className="w-3/4 pe-6">
       <ArticleCard

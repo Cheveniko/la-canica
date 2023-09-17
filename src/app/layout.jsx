@@ -10,8 +10,21 @@ const radnika = Radnika({
 });
 
 export const metadata = {
-  title: "La Canica",
-  description: "Noticias tan falsas que en Ecuador parecen reales",
+  title: {
+    template: "%s | La Canica",
+    default: "La Canica",
+  },
+  description: "Noticias tan falsas que en Ecuador parecen reales 🇪🇨",
+  keywords: [
+    "Canica",
+    "Ecuador",
+    "Noticias",
+    "Quito",
+    "Guayaquil",
+    "Cuenca",
+    "Politica",
+  ],
+  referrer: "origin-when-cross-origin",
 };
 
 export default function RootLayout({ children }) {
