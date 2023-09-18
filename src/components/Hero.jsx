@@ -1,11 +1,7 @@
+import { resolve } from "styled-jsx/css";
 import ArticleCard from "./ArticleCard";
 
 import { getHeroArticle } from "@/utils/get-articles";
-
-// const loadHeroArticle = async () => {
-//   const heroArticle = await Article.findOne({ kind: "main" });
-//   return heroArticle;
-// };
 
 async function Hero() {
   const heroArticle = await getHeroArticle();

@@ -11,8 +11,8 @@ function Navbar() {
           <Link href="/">
             <Image src={HeaderLogo} alt="La Canica Ec" height={60} />
           </Link>
-          <ul className="flex">
-            <li className="me-5">
+          <ul className="flex gap-5">
+            <li>
               <Link
                 href="https://instagram.com/lacanica_ec/"
                 target="_blank"
@@ -21,7 +21,7 @@ function Navbar() {
                 <FaInstagram />
               </Link>
             </li>
-            <li className="me-5">
+            {/* <li>
               <Link
                 href="#"
                 target="_blank"
@@ -29,8 +29,8 @@ function Navbar() {
               >
                 <FaTiktok />
               </Link>
-            </li>
-            <li className="me-5">
+            </li> */}
+            <li>
               <Link
                 href="https://twitter.com/lacanica_ec"
                 target="_blank"
@@ -39,7 +39,7 @@ function Navbar() {
                 <FaXTwitter />
               </Link>
             </li>
-            <li className="me-5">
+            {/* <li>
               <Link
                 href="/login"
                 target="_self"
@@ -47,7 +47,7 @@ function Navbar() {
               >
                 <FaUser />
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
       </nav>

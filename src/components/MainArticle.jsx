@@ -28,7 +28,7 @@ async function MainArticle({ slug, bannerWidth, bannerHeigth }) {
         priority={true}
       />
       <ArticleBody body={body} style={bodyStyle} />
-      <ShareCard />
+      <ShareCard title={title} slug={slug} />
     </div>
   );
 }

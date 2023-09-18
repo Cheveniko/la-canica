@@ -2,12 +2,6 @@ import ArticleCard from "./ArticleCard";
 
 import { getNewsArticles } from "@/utils/get-articles";
 
-// const loadNewsArticles = async () => {
-//   const newsArticles = await Article.find({ kind: "news" });
-//   const slicednewsArticles = newsArticles.reverse();
-//   return slicednewsArticles;
-// };
-
 async function NewsContainer() {
   const newsArticles = await getNewsArticles();
 

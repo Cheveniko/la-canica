@@ -11,10 +11,10 @@ function ArticleInfo({ category, date, style }) {
           year: "numeric",
         }).format(date)}
       </p>
-      <span className="text-gray-400 flex items-center gap-1">
+      {/* <span className="text-gray-400 flex items-center gap-1">
         <FaRegComment />
         <p>50</p>
-      </span>
+      </span> */}
     </div>
   );
 }

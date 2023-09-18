@@ -14,8 +14,8 @@ function Footer() {
           <h2 className="text-2xl font-normal">
             Noticias tan falsas que en Ecuador parecen reales 🇪🇨
           </h2>
-          <ul className="flex mt-4">
-            <li className="me-5">
+          <ul className="flex mt-4 gap-5">
+            <li>
               <Link
                 href="https://instagram.com/lacanica_ec/"
                 target="_blank"
@@ -24,7 +24,7 @@ function Footer() {
                 <FaInstagram />
               </Link>
             </li>
-            <li className="me-5">
+            {/* <li>
               <Link
                 href="#"
                 target="_blank"
@@ -32,8 +32,8 @@ function Footer() {
               >
                 <FaTiktok />
               </Link>
-            </li>
-            <li className="me-5">
+            </li> */}
+            <li>
               <Link
                 href="https://twitter.com/lacanica_ec"
                 target="_blank"

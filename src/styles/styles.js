@@ -14,7 +14,8 @@ export const InfoStyles = {
 
 export const TitleStyles = {
   hero: "text-4xl font-bold group-hover:underline underline-offset-2",
-  sidebar: "text-lg font-bold group-hover:underline underline-offset-2",
+  sidebar:
+    "text-lg font-bold leading-snug group-hover:underline underline-offset-2",
   news: "text-xl font-bold group-hover:underline underline-offset-2",
   main: "text-5xl font-bold",
 };
@@ -22,6 +23,6 @@ export const TitleStyles = {
 export const BodyStyles = {
   hero: "text-lg text-slate-400 pt-3",
   sidebar: "text-lg text-slate-400 pt-3",
-  news: "text-lg text-slate-400 pt-3",
+  news: "text-lg text-slate-400 line-clamp-3 pt-3",
   main: "text-xl text-slate-400 pt-6",
 };
