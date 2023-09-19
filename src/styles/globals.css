@@ -9,7 +9,7 @@
 
 body {
   color: #fff;
-  @apply bg-cyan-950;
+  @apply bg-gradient-to-b from-cyan-700 to-cyan-950;
 }
 
 main {
