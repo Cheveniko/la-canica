@@ -40,7 +40,7 @@ export default function ArticlePage({ params }) {
         <MainArticle slug={params.slug} bannerWidth={1200} bannerHeigth={675} />
         <SideBar />
       </div>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <hr className="border-1 border-gray-200 mt-6 mb-4" />
       </div>
       <h2 className="text-4xl pb-2 font-bold text-center underline underline-offset-8 decoration-amber-400">

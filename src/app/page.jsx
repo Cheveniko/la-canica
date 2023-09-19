@@ -9,7 +9,7 @@ export default function HomePage() {
         <Hero />
         <Sidebar />
       </div>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <hr className="border-1 border-gray-200 mt-6 mb-4" />
       </div>
       <h2 className="text-4xl pb-2 font-bold text-center underline underline-offset-8 decoration-amber-400">
