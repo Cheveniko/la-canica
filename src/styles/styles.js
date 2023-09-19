@@ -13,11 +13,11 @@ export const InfoStyles = {
 };
 
 export const TitleStyles = {
-  hero: "text-3xl md:text-4xl font-bold leading-tight group-hover:underline underline-offset-2",
+  hero: "text-3xl md:text-4xl font-bold leading-[1.05] md:leading-tight group-hover:underline underline-offset-2",
   sidebar:
-    "text-lg font-bold leading-tight group-hover:underline underline-offset-2",
-  news: "text-xl font-bold leading-tight group-hover:underline underline-offset-2",
-  main: "text-3xl md:text-4xl font-bold lg:text-5xl leading-tight",
+    "text-lg font-bold leading-[1.05] md:leading-tight group-hover:underline underline-offset-2",
+  news: "text-xl font-bold leading-[1.05] md:leading-tight group-hover:underline underline-offset-2",
+  main: "text-3xl md:text-4xl font-bold lg:text-5xl leading-[1.05] md:leading-tight",
 };
 
 export const BodyStyles = {
