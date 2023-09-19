@@ -6,17 +6,17 @@ import HeaderLogo from "../../public/img/header_logo.png";
 function Navbar() {
   return (
     <header>
-      <nav className=" bg-gradient-to-b from-cyan-700 to-cyan-950 py-5">
-        <div className="container mx-auto flex justify-between items-center">
+      <nav className="fixed top-0 z-20 w-full bg-gradient-to-b from-cyan-700 to-cyan-950 py-4">
+        <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/">
-            <Image src={HeaderLogo} alt="La Canica Ec" height={60} />
+            <Image src={HeaderLogo} alt="La Canica Ec" height={50} />
           </Link>
-          <ul className="flex gap-5">
+          <ul className="flex gap-5 text-white">
             <li>
               <Link
                 href="https://instagram.com/lacanica_ec/"
                 target="_blank"
-                className="text-white text-3xl hover:text-slate-700 transition ease-in-out"
+                className="text-3xl instagram transition ease-in duration-300"
               >
                 <FaInstagram />
               </Link>
@@ -25,16 +25,16 @@ function Navbar() {
               <Link
                 href="#"
                 target="_blank"
-                className="text-white text-3xl hover:text-slate-700 transition ease-in-out"
+                className="text-3xl hover:text-slate-700 transition ease-in-out"
               >
                 <FaTiktok />
               </Link>
             </li> */}
             <li>
               <Link
-                href="https://twitter.com/lacanica_ec"
+                href="https://x.com/lacanica_ec"
                 target="_blank"
-                className="text-white text-3xl hover:text-slate-700 transition ease-in-out"
+                className="text-3xl twitter transition ease-in duration-300"
               >
                 <FaXTwitter />
               </Link>
@@ -43,7 +43,7 @@ function Navbar() {
               <Link
                 href="/login"
                 target="_self"
-                className="text-white text-3xl hover:text-slate-700 transition ease-in-out"
+                className="text-3xl hover:text-slate-700 transition ease-in-out"
               >
                 <FaUser />
               </Link>

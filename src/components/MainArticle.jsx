@@ -17,7 +17,7 @@ async function MainArticle({ slug, bannerWidth, bannerHeigth }) {
   const bodyStyle = BodyStyles.main;
 
   return (
-    <div className="w-3/4 pe-6">
+    <div className="lg:w-3/4 lg:pe-6">
       <ArticleTitle title={title} style={titleStyle} />
       <ArticleInfo category={category} date={date} style={infoStyle} />
       <ArticleBanner

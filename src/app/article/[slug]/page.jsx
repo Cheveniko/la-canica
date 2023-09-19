@@ -36,8 +36,8 @@ export const generateMetadata = async ({ params }) => {
 export default function ArticlePage({ params }) {
   return (
     <main className="bg-cyan-950 py-4">
-      <div className="container mx-auto flex">
-        <MainArticle slug={params.slug} bannerWidth={1200} bannerHeigth={300} />
+      <div className="container mx-auto px-4 lg:flex">
+        <MainArticle slug={params.slug} bannerWidth={1200} bannerHeigth={675} />
         <SideBar />
       </div>
       <div className="container mx-auto">

@@ -6,7 +6,7 @@ import { getHeroArticle } from "@/utils/get-articles";
 async function Hero() {
   const heroArticle = await getHeroArticle();
   return (
-    <div className="w-3/4 pe-6">
+    <div className="lg:w-3/4 lg:pe-6">
       <ArticleCard
         article={heroArticle}
         bannerWidth={1200}

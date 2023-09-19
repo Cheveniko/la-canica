@@ -6,20 +6,20 @@ import FooterLogo from "../../public/img/bola.png";
 function Footer() {
   return (
     <footer className="pt-10 pb-8 bg-gradient-to-b from-cyan-950 to-canica-purple">
-      <div className="container mx-auto flex">
+      <div className="container mx-auto px-4 flex items-center">
         <Link href="/">
-          <Image src={FooterLogo} alt="La Canica" height={150} />
+          <Image src={FooterLogo} alt="La Canica" height={150} className="" />
         </Link>
         <div className="ms-8">
-          <h2 className="text-2xl font-normal">
+          <h2 className="text-xl md:text-2xl font-normal">
             Noticias tan falsas que en Ecuador parecen reales 🇪🇨
           </h2>
-          <ul className="flex mt-4 gap-5">
+          <ul className="hidden sm:flex mt-4 gap-5 text-white">
             <li>
               <Link
                 href="https://instagram.com/lacanica_ec/"
                 target="_blank"
-                className="text-white text-4xl hover:text-slate-700 transition ease-in-out"
+                className="text-4xl instagram transition ease-in duration-300"
               >
                 <FaInstagram />
               </Link>
@@ -28,7 +28,7 @@ function Footer() {
               <Link
                 href="#"
                 target="_blank"
-                className="text-white text-4xl hover:text-slate-700 transition ease-in-out"
+                className="text-4xl hover:text-slate-700 transition ease-in-out"
               >
                 <FaTiktok />
               </Link>
@@ -37,16 +37,50 @@ function Footer() {
               <Link
                 href="https://twitter.com/lacanica_ec"
                 target="_blank"
-                className="text-white text-4xl hover:text-slate-700 transition ease-in-out"
+                className="text-4xl twitter transition ease-in duration-300"
               >
                 <FaXTwitter />
               </Link>
             </li>
           </ul>
-          <p className="text-xl mt-4">
+          <p className="hidden sm:inline-block text-lg md:text-xl mt-4">
             &#169; 2023 La Canica - Todos los derechos reservados
           </p>
         </div>
+      </div>
+      <div className="container mx-auto px-4">
+        <ul className="flex sm:hidden mt-4 gap-5 text-white">
+          <li>
+            <Link
+              href="https://instagram.com/lacanica_ec/"
+              target="_blank"
+              className="text-4xl instagram transition ease-in duration-300"
+            >
+              <FaInstagram />
+            </Link>
+          </li>
+          {/* <li>
+            <Link
+              href="#"
+              target="_blank"
+              className="text-4xl hover:text-slate-700 transition ease-in-out"
+            >
+              <FaTiktok />
+            </Link>
+          </li> */}
+          <li>
+            <Link
+              href="https://twitter.com/lacanica_ec"
+              target="_blank"
+              className="text-4xl twitter transition ease-in duration-300"
+            >
+              <FaXTwitter />
+            </Link>
+          </li>
+        </ul>
+        <p className="sm:hidden text-lg md:text-xl mt-4">
+          &#169; 2023 La Canica - Todos los derechos reservados
+        </p>
       </div>
     </footer>
   );

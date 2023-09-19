@@ -26,6 +26,7 @@ function ShareCard({ title, slug }) {
           <Link
             href={`https://x.com/intent/tweet?text=${urlTitle}&url=${encodedUrl}&via=${twitterHandle}`}
             target="_blank"
+            className="transition ease-in duration-300 hover:text-black"
           >
             <Tooltip title="Compartir en X">
               <FaXTwitter />
@@ -36,6 +37,7 @@ function ShareCard({ title, slug }) {
           <Link
             href={`https://t.me/share/url?url=${encodedUrl}&text=${urlTitle}`}
             target="_blank"
+            className="transition ease-in duration-300 hover:text-black"
           >
             <Tooltip title="Enviar por Telegram">
               <FaTelegram />
@@ -46,6 +48,7 @@ function ShareCard({ title, slug }) {
           <Link
             href={`https://api.whatsapp.com/send?text=${encodedUrl} ${urlTitle}`}
             target="_blank"
+            className="transition ease-in duration-300 hover:text-black"
           >
             <Tooltip title="Enviar por Whatsapp">
               <FaWhatsapp />
@@ -56,7 +59,7 @@ function ShareCard({ title, slug }) {
           <Link
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
             target="_blank"
-            className="  w-32 w"
+            className="transition ease-in duration-300 hover:text-black"
           >
             <Tooltip title="Compartir en Facebook">
               <FaFacebook />
@@ -73,7 +76,7 @@ function ShareCard({ title, slug }) {
             >
               <FaLink
                 onClick={() => setTooltipTitle("Link copiado!")}
-                className="cursor-pointer"
+                className="cursor-pointer transition ease-in duration-300 hover:text-black"
               />
             </Tooltip>
           </CopyToClipboard>

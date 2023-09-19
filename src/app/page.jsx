@@ -5,7 +5,7 @@ import NewsContainer from "@/components/NewsContainer";
 export default function HomePage() {
   return (
     <main className="bg-cyan-950 py-4">
-      <div className="container mx-auto flex">
+      <div className="container mx-auto px-4 lg:flex">
         <Hero />
         <Sidebar />
       </div>
