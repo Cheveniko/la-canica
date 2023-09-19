@@ -9,7 +9,7 @@
 
 body {
   color: #fff;
-  @apply bg-cyan-950;
+  @apply bg-cyan-700;
 }
 
 main {
