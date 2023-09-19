@@ -13,16 +13,16 @@ export const InfoStyles = {
 };
 
 export const TitleStyles = {
-  hero: "text-3xl md:text-4xl font-bold group-hover:underline underline-offset-2",
+  hero: "text-3xl md:text-4xl font-bold leading-tight group-hover:underline underline-offset-2",
   sidebar:
-    "text-lg font-bold leading-snug group-hover:underline underline-offset-2",
-  news: "text-xl font-bold group-hover:underline underline-offset-2",
-  main: "text-3xl md:text-4xl lg:text-5xl font-bold",
+    "text-lg font-bold leading-tight group-hover:underline underline-offset-2",
+  news: "text-xl font-bold leading-tight group-hover:underline underline-offset-2",
+  main: "text-3xl md:text-4xl font-bold lg:text-5xl leading-tight",
 };
 
 export const BodyStyles = {
-  hero: "text-lg text-slate-400 pt-3",
-  sidebar: "text-lg text-slate-400 pt-3",
-  news: "text-lg text-slate-400 line-clamp-3 pt-3",
-  main: "text-lg md:text-xl text-slate-400 pt-6",
+  hero: "text-lg leading-tight text-slate-400 pt-3",
+  sidebar: "text-lg leading-tight text-slate-400 pt-3",
+  news: "text-lg leading-tight text-slate-400 line-clamp-3 pt-3",
+  main: "text-lg md:text-xl leading-tight text-slate-400 pt-6",
 };
