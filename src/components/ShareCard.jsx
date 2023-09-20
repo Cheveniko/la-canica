@@ -14,7 +14,7 @@ import {
 function ShareCard({ title, slug }) {
   const [tooltipTitle, setTooltipTitle] = useState("Copiar link");
 
-  const baseUrl = `https://la-canica.vercel.app/article/${slug}`;
+  const baseUrl = `https://www.lacanica.ec/article/${slug}`;
   const encodedUrl = encodeURIComponent(baseUrl);
   const urlTitle = title.replace(/ /g, "+");
   const twitterHandle = "lacanica_ec";
