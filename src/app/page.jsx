@@ -2,6 +2,8 @@ import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import NewsContainer from "@/components/NewsContainer";
 
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   return (
     <main className="bg-cyan-950 py-4">
