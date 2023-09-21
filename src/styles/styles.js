@@ -21,7 +21,7 @@ export const TitleStyles = {
 };
 
 export const BodyStyles = {
-  hero: "text-lg leading-tight text-slate-400 pt-3",
+  hero: "text-lg leading-tight text-slate-400 line-clamp-3 pt-3",
   sidebar: "text-lg leading-tight text-slate-400 pt-3",
   news: "text-lg leading-tight text-slate-400 line-clamp-3 pt-3",
   main: "text-lg md:text-xl leading-tight text-slate-400 pt-6",
