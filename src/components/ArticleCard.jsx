@@ -11,7 +11,7 @@ import {
   ArticleContainerStyles,
 } from "@/styles/styles";
 
-function ArticleCard({ article, bannerWidth, bannerHeigth, type }) {
+function ArticleCard({ article, bannerWidth, bannerHeigth, type, children }) {
   const { title, body, category, date, img_url, slug } = article;
 
   let titleStyle = null;
@@ -30,12 +30,14 @@ function ArticleCard({ article, bannerWidth, bannerHeigth, type }) {
       showArticleBody = true;
       isImagePriority = true;
       break;
+
     case "sidebar":
       articleContainerStyle = ArticleContainerStyles.sidebar;
       titleStyle = TitleStyles.sidebar;
       infoStyle = InfoStyles.sidebar;
       bodyStyle = BodyStyles.sidebar;
       break;
+
     case "news":
       articleContainerStyle = ArticleContainerStyles.news;
       titleStyle = TitleStyles.news;
@@ -43,6 +45,7 @@ function ArticleCard({ article, bannerWidth, bannerHeigth, type }) {
       bodyStyle = BodyStyles.news;
       showArticleBody = true;
       break;
+
     case "main":
       articleContainerStyle = ArticleContainerStyles.main;
       titleStyle = TitleStyles.main;
@@ -50,6 +53,15 @@ function ArticleCard({ article, bannerWidth, bannerHeigth, type }) {
       bodyStyle = BodyStyles.main;
       showArticleBody = true;
       break;
+
+    case "admin":
+      articleContainerStyle = ArticleContainerStyles.admin;
+      titleStyle = TitleStyles.admin;
+      infoStyle = InfoStyles.admin;
+      bodyStyle = BodyStyles.admin;
+      showArticleBody = false;
+      break;
+
     default:
       articleContainerStyle = ArticleContainerStyles.news;
       titleStyle = TitleStyles.news;
@@ -72,6 +84,7 @@ function ArticleCard({ article, bannerWidth, bannerHeigth, type }) {
         <ArticleTitle title={title} style={titleStyle} />
         {showArticleBody && <ArticleBody body={body} style={bodyStyle} />}
       </LinkArticle>
+      {children}
     </div>
   );
 }
