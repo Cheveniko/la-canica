@@ -22,8 +22,8 @@ export const getSidebarArticles = cache(async () => {
 export const getNewsArticles = cache(async () => {
   await connectDB();
   const newsArticles = await Article.find({ kind: "news", hidden: false });
-  const slicednewsArticles = newsArticles.reverse();
-  return slicednewsArticles;
+  const reversedNewsArticles = newsArticles.reverse();
+  return reversedNewsArticles;
 });
 
 export const getMainArticle = cache(async (slug) => {
@@ -35,5 +35,6 @@ export const getMainArticle = cache(async (slug) => {
 export const getAllArticles = cache(async () => {
   await connectDB();
   const articles = await Article.find();
-  return articles;
+  const reversedArticles = articles.reverse();
+  return reversedArticles;
 });

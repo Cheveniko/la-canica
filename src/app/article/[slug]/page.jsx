@@ -12,7 +12,7 @@ export const generateMetadata = async ({ params }) => {
     openGraph: {
       title: mainArticle.title,
       description: mainArticle.body,
-      url: "https://lacanica.ec",
+      url: "https://www.lacanica.ec",
       siteName: "La Canica",
       type: "website",
       images: [

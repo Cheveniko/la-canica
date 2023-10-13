@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 
 function LinkArticle({ slug, children }) {
   const currentPath = usePathname();
-  const href = currentPath.includes("/article")
-    ? `/article/${slug}`
-    : `/article/${slug}`;
+  // const href = currentPath.includes("/article")
+  //   ? `/article/${slug}`
+  //   : `/article/${slug}`;
+  const href = `/article/${slug}`;
 
   return <Link href={href}>{children}</Link>;
 }

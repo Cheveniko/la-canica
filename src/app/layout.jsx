@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "../styles/globals.css";
-import { Inter } from "next/font/google";
 import Radnika from "next/font/local";
 
 const radnika = Radnika({

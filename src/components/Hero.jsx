@@ -1,4 +1,3 @@
-import { resolve } from "styled-jsx/css";
 import ArticleCard from "./ArticleCard";
 
 import { getHeroArticle } from "@/utils/get-articles";
