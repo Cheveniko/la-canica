@@ -1,9 +1,9 @@
 export const ArticleContainerStyles = {
   hero: "group",
-  sidebar: "group pt-6",
-  news: "group pt-6",
+  sidebar: "pt-6 group",
+  news: "pt-6 group",
   main: "",
-  admin: "group pt-6",
+  admin: "flex flex-col justify-between pt-6",
 };
 
 export const InfoStyles = {
