@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export default function HomePage() {
   return (
-    <main className="bg-cyan-950 py-4">
+    <div>
       <div className="container mx-auto px-4 lg:flex">
         <Hero />
         <Sidebar />
@@ -18,6 +18,6 @@ export default function HomePage() {
         Noticias
       </h2>
       <NewsContainer />
-    </main>
+    </div>
   );
 }

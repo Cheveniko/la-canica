@@ -3,13 +3,16 @@ import NewArticleButton from "@/components/buttons/NewArticleButton";
 
 function AdminPage() {
   return (
-    <main className="bg-cyan-950 py-4">
+    <div>
       <div className="container mx-auto px-4 lg:flex justify-between items-center">
         <h2 className="text-4xl">Todos los artículos</h2>
         <NewArticleButton />
       </div>
+      <div className="container mx-auto px-4">
+        <hr className="border-1 border-gray-200 mt-6" />
+      </div>
       <AllArticlesContainer />
-    </main>
+    </div>
   );
 }
 

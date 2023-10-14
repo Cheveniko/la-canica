@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body className={radnika.className}>
         <Navbar />
-        {children}
+        <main className="bg-cyan-950 py-4">{children}</main>
         <Footer />
       </body>
     </html>
