@@ -16,25 +16,25 @@ function Navbar() {
               <Link
                 href="https://instagram.com/lacanica_ec/"
                 target="_blank"
-                className="text-3xl instagram transition ease-in duration-300"
+                className="text-3xl transition-all ease-in duration-300 hover:text-[#E1306C]"
               >
                 <FaInstagram />
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link
-                href="#"
+                href="https://www.tiktok.com/@la.canica.ec"
                 target="_blank"
-                className="text-3xl hover:text-slate-700 transition ease-in-out"
+                className="text-3xl transition-all ease-in duration-300 hover:text-[#FF0050]"
               >
                 <FaTiktok />
               </Link>
-            </li> */}
+            </li>
             <li>
               <Link
                 href="https://x.com/lacanica_ec"
                 target="_blank"
-                className="text-3xl twitter transition ease-in duration-300"
+                className="text-3xl transition-all ease-in duration-300 hover:text-black"
               >
                 <FaXTwitter />
               </Link>
@@ -43,7 +43,7 @@ function Navbar() {
               <Link
                 href="/login"
                 target="_self"
-                className="text-3xl hover:text-slate-700 transition ease-in-out"
+                className="text-3xl transition-all ease-in duration-300 hover:text-[#E1306C]"
               >
                 <FaUser />
               </Link>

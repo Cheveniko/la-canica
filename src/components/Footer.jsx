@@ -19,25 +19,25 @@ function Footer() {
               <Link
                 href="https://instagram.com/lacanica_ec/"
                 target="_blank"
-                className="text-4xl instagram transition ease-in duration-300"
+                className="text-4xl transition-all ease-in duration-300 hover:text-[#E1306C]"
               >
                 <FaInstagram />
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link
-                href="#"
+                href="https://www.tiktok.com/@la.canica.ec"
                 target="_blank"
-                className="text-4xl hover:text-slate-700 transition ease-in-out"
+                className="text-4xl transition-all ease-in duration-300 hover:text-[#FF0050]"
               >
                 <FaTiktok />
               </Link>
-            </li> */}
+            </li>
             <li>
               <Link
-                href="https://twitter.com/lacanica_ec"
+                href="https://x.com/lacanica_ec"
                 target="_blank"
-                className="text-4xl twitter transition ease-in duration-300"
+                className="text-4xl transition-all ease-in duration-300 hover:text-black"
               >
                 <FaXTwitter />
               </Link>
@@ -54,25 +54,25 @@ function Footer() {
             <Link
               href="https://instagram.com/lacanica_ec/"
               target="_blank"
-              className="text-4xl instagram transition ease-in duration-300"
+              className="text-4xl transition-all ease-in duration-300 hover:text-[#E1306C]"
             >
               <FaInstagram />
             </Link>
           </li>
-          {/* <li>
+          <li>
             <Link
-              href="#"
+              href="https://www.tiktok.com/@la.canica.ec"
               target="_blank"
-              className="text-4xl hover:text-slate-700 transition ease-in-out"
+              className="text-4xl transition-all ease-in duration-300 hover:text-[#FF0050]"
             >
               <FaTiktok />
             </Link>
-          </li> */}
+          </li>
           <li>
             <Link
-              href="https://twitter.com/lacanica_ec"
+              href="https://x.com/lacanica_ec"
               target="_blank"
-              className="text-4xl twitter transition ease-in duration-300"
+              className="text-4xl transition-all ease-in duration-300 hover:text-black"
             >
               <FaXTwitter />
             </Link>
