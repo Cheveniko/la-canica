@@ -1,8 +1,10 @@
 "use client";
-import { Tooltip } from "antd";
-import Link from "next/link";
 import { useState } from "react";
+
+import Link from "next/link";
+
 import CopyToClipboard from "react-copy-to-clipboard";
+
 import {
   FaTelegram,
   FaWhatsapp,
@@ -10,6 +12,13 @@ import {
   FaLink,
   FaFacebook,
 } from "react-icons/fa6";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function ShareCard({ title, slug }) {
   const [tooltipTitle, setTooltipTitle] = useState("Copiar link");
@@ -28,9 +37,18 @@ function ShareCard({ title, slug }) {
             target="_blank"
             className="transition ease-in duration-300 hover:text-black"
           >
-            <Tooltip title="Compartir en X">
-              <FaXTwitter />
-            </Tooltip>
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span>
+                    <FaXTwitter />
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Compartir en X</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </Link>
         </li>
         <li>
@@ -39,9 +57,18 @@ function ShareCard({ title, slug }) {
             target="_blank"
             className="transition ease-in duration-300 hover:text-black"
           >
-            <Tooltip title="Enviar por Telegram">
-              <FaTelegram />
-            </Tooltip>
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span>
+                    <FaTelegram />
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Enviar por Telegram</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </Link>
         </li>
         <li>
@@ -50,9 +77,18 @@ function ShareCard({ title, slug }) {
             target="_blank"
             className="transition ease-in duration-300 hover:text-black"
           >
-            <Tooltip title="Enviar por Whatsapp">
-              <FaWhatsapp />
-            </Tooltip>
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span>
+                    <FaWhatsapp />
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Enviar por Whatsapp</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </Link>
         </li>
         <li>
@@ -61,25 +97,47 @@ function ShareCard({ title, slug }) {
             target="_blank"
             className="transition ease-in duration-300 hover:text-black"
           >
-            <Tooltip title="Compartir en Facebook">
-              <FaFacebook />
-            </Tooltip>
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span>
+                    <FaFacebook />
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Compartir en Facebook</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </Link>
         </li>
         <li>
-          <CopyToClipboard text={baseUrl}>
+          <TooltipProvider delayDuration={200}>
             <Tooltip
-              title={tooltipTitle}
-              overlayClassName="w-28"
-              overlayInnerStyle={{ textAlign: "center" }}
-              onOpenChange={() => setTooltipTitle("Copiar link")}
+              onOpenChange={() =>
+                setTimeout(() => {
+                  setTooltipTitle("Copiar link");
+                }, 100)
+              }
             >
-              <FaLink
-                onClick={() => setTooltipTitle("Link copiado!")}
-                className="cursor-pointer transition ease-in duration-300 hover:text-black"
-              />
+              <CopyToClipboard text={baseUrl}>
+                <TooltipTrigger
+                  asChild
+                  onClick={(e) => {
+                    setTooltipTitle("¡Link copiado!");
+                    e.preventDefault();
+                  }}
+                >
+                  <span>
+                    <FaLink className="cursor-pointer" />
+                  </span>
+                </TooltipTrigger>
+              </CopyToClipboard>
+              <TooltipContent>
+                <p>{tooltipTitle}</p>
+              </TooltipContent>
             </Tooltip>
-          </CopyToClipboard>
+          </TooltipProvider>
         </li>
       </ul>
     </div>

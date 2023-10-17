@@ -1,4 +1,4 @@
-import { Form, Button, Select, Input, Upload, message } from "antd";
+import { Form, Button, DatePicker, Select, Input, Upload, message } from "antd";
 
 import { FaImage } from "react-icons/fa6";
 const { Dragger } = Upload;
@@ -41,6 +41,17 @@ const categories = [
   { value: "quito", label: "Quito" },
 ];
 
+const visibilityOptions = [
+  { value: "visible", label: "Público" },
+  { value: "hidden", label: "Oculto" },
+];
+
+const typeOptions = [
+  { value: "main", label: "Principal" },
+  { value: "trending", label: "Tendencias" },
+  { value: "news", label: "Noticias" },
+];
+
 function ArticleForm() {
   return (
     <Form className="bg-cyan-900 rounded-xl px-8 py-4">
@@ -67,7 +78,7 @@ function ArticleForm() {
       <h2 className="text-white text-3xl mb-2">Información Adicional</h2>
       <div className="flex justify-between py-4 px-3 border rounded-md border-slate-400 text-white text-xl">
         <div className="w-1/4 flex gap-x-4">
-          <p className="">Categorías</p>
+          <p className="">Categoría</p>
           <Form.Item>
             <Select
               size="middle"
@@ -78,21 +89,19 @@ function ArticleForm() {
               onSearch={onSearch}
               filterOption={filterOption}
               options={categories}
+              // children={{}}
+              // style={{ backgroundColor: "" }}
+              popupClassName="bg-cyan-600"
             />
           </Form.Item>
         </div>
         <div className="w-1/4 flex gap-x-4">
           <p>Fecha</p>
           <Form.Item>
-            <Select
-              size="middle"
-              showSearch
-              placeholder="Seleccionar"
-              optionFilterProp="children"
+            <DatePicker
               onChange={onChange}
-              onSearch={onSearch}
-              filterOption={filterOption}
-              options={categories}
+              style={{ background: "#ff6d00", borderColor: "black" }}
+              popupStyle={{ backgroundColor: "black" }}
             />
           </Form.Item>
         </div>
@@ -107,7 +116,7 @@ function ArticleForm() {
               onChange={onChange}
               onSearch={onSearch}
               filterOption={filterOption}
-              options={categories}
+              options={visibilityOptions}
             />
           </Form.Item>
         </div>
@@ -122,7 +131,8 @@ function ArticleForm() {
               onChange={onChange}
               onSearch={onSearch}
               filterOption={filterOption}
-              options={categories}
+              options={typeOptions}
+              className="ola"
             />
           </Form.Item>
         </div>
