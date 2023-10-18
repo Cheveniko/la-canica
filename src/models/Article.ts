@@ -15,7 +15,7 @@ export interface IArticle {
   slug: string;
 }
 
-const ArticleSchema = new Schema<IArticle>(
+const ArticleSchema: Schema = new Schema<IArticle>(
   {
     title: {
       type: String,

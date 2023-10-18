@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import Article from "@/models/Article";
+import { Article } from "@/models/Article";
 
 export async function GET(req, { params }) {
   try {

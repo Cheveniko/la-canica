@@ -4,12 +4,14 @@ const dbConnection = {
   isConnected: false,
 };
 
-export async function connectDB() {
+const mongodbUri = process.env.MONGODB_URI as string;
+
+export const connectDB = async () => {
   if (dbConnection.isConnected) return;
 
-  const db = await connect(process.env.MONGODB_URI);
-  dbConnection.isConnected = db.connections[0].readyState;
-}
+  await connect(mongodbUri);
+  // dbConnection.isConnected = db.connections[0].readyState;
+};
 
 connection.on("connected", () => {
   console.log("Mongoose is connected");
