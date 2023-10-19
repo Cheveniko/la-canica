@@ -13,18 +13,20 @@
 use("laCanicaDB");
 
 // Insert a few documents into the sales collection.
-db.getCollection("articles").insert({
-  title:
-    "Debate 2023: Ecuatorianos decepcionados ante la falta de contenido para memes del debate",
-  body: "Ecuatorianos decepcionados ante la falta de contenido para memes del debate.",
-  category: "elecciones",
-  date: Date.now(),
-  hidden: false,
-  kind: "main",
-  createdAt: Date.now(),
-  "updatedAt:": Date.now(),
-  __v: 0,
-  img_url:
-    "https://lacanica.blob.core.windows.net/images/ecuatorianos-decepcionados.jpg",
-  slug: "debate-2023-ecuatorianos-decepcionados-ante-la-falta-de-contenido-para-memes-del-debate",
-});
+// db.getCollection("articles").insert({
+//   title:
+//     "Debate 2023: Ecuatorianos decepcionados ante la falta de contenido para memes del debate",
+//   body: "Ecuatorianos decepcionados ante la falta de contenido para memes del debate.",
+//   category: "elecciones",
+//   date: Date.now(),
+//   hidden: false,
+//   kind: "main",
+//   createdAt: Date.now(),
+//   "updatedAt:": Date.now(),
+//   __v: 0,
+//   img_url:
+//     "https://lacanica.blob.core.windows.net/images/ecuatorianos-decepcionados.jpg",
+//   slug: "debate-2023-ecuatorianos-decepcionados-ante-la-falta-de-contenido-para-memes-del-debate",
+// });
+
+db.articles.distinct("category");
