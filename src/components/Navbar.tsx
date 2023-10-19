@@ -10,15 +10,15 @@ import HeaderLogo from "../../public/img/header_logo.png";
 const Navbar: FC = () => {
   return (
     <header>
-      <nav className="fixed top-0 z-20 w-full bg-gradient-to-b from-cyan-700 to-cyan-950 py-4">
+      <nav className="fixed top-0 z-20 w-full bg-gradient-to-b from-cyan-700 to-cyan-950 pt-4 pb-2">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link href="/">
-            <Image src={HeaderLogo} alt="La Canica Ec" height={50} />
+            <Image src={HeaderLogo} alt="La Canica Ec" height={40} />
           </Link>
           <ul className="flex gap-5 text-white">
             <li>
               <Link
-                href="https://instagram.com/lacanica_ec/"
+                href="https://instagram.com/lacanica.ec/"
                 target="_blank"
                 className="text-3xl transition-all ease-in duration-300 hover:text-[#E1306C]"
               >

@@ -19,7 +19,7 @@ const Footer: FC = () => {
           <ul className="hidden sm:flex mt-4 gap-5 text-white">
             <li>
               <Link
-                href="https://instagram.com/lacanica_ec/"
+                href="https://instagram.com/lacanica.ec/"
                 target="_blank"
                 className="text-4xl transition-all ease-in duration-300 hover:text-[#E1306C]"
               >
