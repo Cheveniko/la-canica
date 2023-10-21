@@ -1,10 +1,9 @@
 import ArticleCard from "./ArticleCard";
 
-import { IArticle } from "@/models/Article";
-
 import { getSidebarArticles } from "@/utils/get-articles";
+import { FC } from "react";
 
-async function SideBar() {
+const SideBar: FC = async () => {
   const sidebarArticles = await getSidebarArticles();
   return (
     <div className="lg:w-1/4 my-8 lg:my-0 h-min sticky top-[98px] p-4 border border-slate-950 shadow-sm shadow-slate-950 rounded-2xl">
@@ -22,6 +21,6 @@ async function SideBar() {
       ))}
     </div>
   );
-}
+};
 
 export default SideBar;
