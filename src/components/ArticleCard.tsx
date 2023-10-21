@@ -15,13 +15,13 @@ import {
   ArticleContainerStyles,
 } from "@/styles/styles";
 
-interface ArticleCardProps {
+type ArticleCardProps = {
   article: IArticle;
   bannerWidth: number;
   bannerHeigth: number;
   type: string;
   children?: React.ReactNode;
-}
+};
 
 const ArticleCard: FC<ArticleCardProps> = ({
   article,
