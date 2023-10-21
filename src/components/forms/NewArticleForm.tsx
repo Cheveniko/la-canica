@@ -1,15 +1,20 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useCallback, useState } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/shadcn";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
+
+import { useDropzone } from "react-dropzone";
 
 import { format } from "date-fns";
+import { es } from "date-fns/locale";
+
+import { categories, visibilityOptions, groupOptions } from "@/utils/constants";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -38,34 +43,20 @@ import {
 import { CalendarIcon } from "lucide-react";
 import { FaImage } from "react-icons/fa6";
 
-const MAX_FILE_SIZE = 1000000;
-
-const checkFileType = (file: File) => {
-  if (file?.name) {
-    const fileType = file.name.split(".").pop() as string;
-    if (["jpg", "jpeg", "png"].includes(fileType)) return true;
-  }
-  return false;
-};
-
 const newArticleSchema = z.object({
   title: z
-    .string({ required_error: "Ingresa un título válido" })
+    .string()
     .min(2, "El título debe contener al menos 2 caracteres")
     .max(512, "Máximos caracteres alcanzados"),
-  banner: z
-    .any({ required_error: "Sube una imagen" })
-    .refine((file: File) => file?.size !== 0, "Imagen no encontrada") // If you also wanna validate if the file exists
-    .refine(
-      (file: File) => file?.size < MAX_FILE_SIZE,
-      "El tamaño máximo de la imagen debe ser de 1MB."
-    ) // file size validation
-    .refine(
-      (file) => checkFileType(file),
-      "Solo se pueden subir archivos jpg, jpeg y png."
-    ),
+  image: z
+    .array(
+      z.object({
+        file: z.any(),
+      })
+    )
+    .nonempty("La imagen es requerida"),
   body: z
-    .string({ required_error: "Ingresa un texto válido" })
+    .string()
     .min(2, "El cuerpo del artículo debe contener al menos 2 caracteres"),
   category: z.string({ required_error: "Selecciona una categoría válida" }),
   date: z.date({ required_error: "Selecciona una fecha válida" }),
@@ -73,11 +64,18 @@ const newArticleSchema = z.object({
   group: z.string({ required_error: "Selecciona el grupo del artículo" }),
 });
 
+export type newArticleValues = z.infer<typeof newArticleSchema>;
+
 const NewArticleForm: FC = () => {
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof newArticleSchema>>({
+  const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
+
+  const form = useForm<newArticleValues>({
     resolver: zodResolver(newArticleSchema),
+    mode: "onBlur",
     defaultValues: {
+      title: "",
+      image: [],
+      body: "",
       category: "noticias",
       date: new Date(),
       visibility: "visible",
@@ -85,32 +83,42 @@ const NewArticleForm: FC = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof newArticleSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  const { append } = useFieldArray({ name: "image", control: form.control });
 
-  const categories = [
-    { value: "ecuador", label: "Ecuador" },
-    { value: "elecciones", label: "Elecciones" },
-    { value: "noticias", label: "Noticias" },
-    { value: "politica", label: "Política" },
-    { value: "quito", label: "Quito" },
-    { value: "uncategorized", label: "Sin Categoría" },
-  ];
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    //Load file data into setPreview to display image preview on drop
+    const file = new FileReader();
+    file.onload = () => setPreview(file.result);
+    file.readAsDataURL(acceptedFiles[0]);
 
-  const visibilityOptions = [
-    { value: "visible", label: "Público" },
-    { value: "hidden", label: "Oculto" },
-  ];
+    //Append file to image[] field
+    acceptedFiles.map((file) => {
+      return append({ file: file });
+    });
+  }, []);
 
-  const groupOptions = [
-    { value: "main", label: "Principal" },
-    { value: "trending", label: "Tendencias" },
-    { value: "news", label: "Noticias" },
-  ];
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles: 1,
+    maxSize: 1000000,
+    accept: { "image/*": [".png", ".jpg", ".jpeg"] },
+  });
+
+  const onSubmit = async (values: newArticleValues) => {
+    // const submittedImage: File = values.image[0].file;
+    console.log(values.image);
+    console.log(JSON.stringify(values));
+
+    await fetch("http://localhost:3000/api/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((r) => console.log(r.json(), "Form enviado con éxito"))
+      .catch((e) => console.log(e));
+  };
 
   return (
     <Form {...form}>
@@ -123,31 +131,63 @@ const NewArticleForm: FC = () => {
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-3xl">Título</FormLabel>
+              <FormLabel className="text-3xl" htmlFor="title">
+                Título
+              </FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  placeholder="Joven va a votar y se encuentra con su papá"
+                  type="text"
+                  {...field}
+                  className="placeholder:text-white/30 text-lg"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name="banner"
-          render={({ field }) => (
+          name="image"
+          render={() => (
             <FormItem>
-              <FormLabel className="text-3xl">Banner</FormLabel>
+              <FormLabel className="text-3xl" htmlFor="newArticleBanner">
+                Imagen
+              </FormLabel>
               <FormControl>
-                <div className="flex flex-col gap-2 py-4 items-center border border-slate-400 rounded-md">
-                  <FaImage className="text-9xl" />
-                  <Input
-                    {...field}
-                    className="text-center border-2 w-fit file:text-white"
-                    type="file"
+                <div
+                  {...getRootProps()}
+                  className={`flex flex-col gap-2 ${
+                    preview ? "pt-0 pb-2" : "py-4"
+                  } items-center border border-slate-400 rounded-md cursor-pointer`}
+                >
+                  {preview && (
+                    <img
+                      src={preview as string}
+                      className="w-full rounded-md"
+                    />
+                  )}
+                  <FaImage
+                    className={`text-9xl ${
+                      form.formState.errors.image && "text-destructive"
+                    } ${preview ? "hidden" : "block"}`}
                   />
+                  <Input
+                    {...getInputProps()}
+                    type="file"
+                    id="newArticleBanner"
+                  />
+                  {isDragActive ? (
+                    <p>Suelta la imagen!</p>
+                  ) : (
+                    <p>Da click o arrastra una imagen para subirla</p>
+                  )}
+                  {form.formState.errors.image && (
+                    <p className="text-destructive">{`${form.formState.errors.image.message}`}</p>
+                  )}
                 </div>
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -165,7 +205,6 @@ const NewArticleForm: FC = () => {
           )}
         />
         <div className="flex justify-between items-center p-4 border rounded-md border-slate-400">
-          {/* <div className="w-1/4"> */}
           <FormField
             control={form.control}
             name="category"
@@ -181,7 +220,7 @@ const NewArticleForm: FC = () => {
                       <SelectValue />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-slate-900 text-white">
                     {categories.map((category, index) => (
                       <SelectItem key={index} value={category.value}>
                         {category.label}
@@ -193,8 +232,6 @@ const NewArticleForm: FC = () => {
               </FormItem>
             )}
           />
-          {/* </div> */}
-          {/* <div className="w-1/4"> */}
           <FormField
             control={form.control}
             name="date"
@@ -215,9 +252,9 @@ const NewArticleForm: FC = () => {
                         )}
                       >
                         {field.value ? (
-                          format(field.value, "PPP")
+                          format(field.value, "PPP", { locale: es })
                         ) : (
-                          <span></span>
+                          <span>Ingresa una fecha válida</span>
                         )}
                         <CalendarIcon className="ml-auto h-4 w-4" />
                       </Button>
@@ -228,9 +265,6 @@ const NewArticleForm: FC = () => {
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      // disabled={(date) =>
-                      //   date > new Date() || date < new Date("1900-01-01")
-                      // }
                       initialFocus
                     />
                   </PopoverContent>
@@ -239,8 +273,6 @@ const NewArticleForm: FC = () => {
               </FormItem>
             )}
           />
-          {/* </div> */}
-          {/* <div className="w-1/4"> */}
           <FormField
             control={form.control}
             name="visibility"
@@ -256,7 +288,7 @@ const NewArticleForm: FC = () => {
                       <SelectValue />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-slate-900 text-white">
                     {visibilityOptions.map((option, index) => (
                       <SelectItem key={index} value={option.value}>
                         {option.label}
@@ -268,8 +300,6 @@ const NewArticleForm: FC = () => {
               </FormItem>
             )}
           />
-          {/* </div> */}
-          {/* <div className="w-1/4"> */}
           <FormField
             control={form.control}
             name="group"
@@ -285,7 +315,7 @@ const NewArticleForm: FC = () => {
                       <SelectValue />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="bg-slate-900 text-white">
                     {groupOptions.map((group, index) => (
                       <SelectItem key={index} value={group.value}>
                         {group.label}
@@ -297,16 +327,14 @@ const NewArticleForm: FC = () => {
               </FormItem>
             )}
           />
-          {/* </div> */}
         </div>
-        <div className="">
-          <Button
-            className="block mx-auto h-auto px-6 py-3 text-xl rounded-xl"
-            type="submit"
-          >
-            Subir Artículo
-          </Button>
-        </div>
+        <Button
+          className="block mx-auto h-auto px-6 py-3 text-xl rounded-xl"
+          type="submit"
+          disabled={form.formState.isSubmitting}
+        >
+          Subir Artículo
+        </Button>
       </form>
     </Form>
   );
