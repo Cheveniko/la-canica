@@ -2,6 +2,8 @@
 
 import { FC, useCallback, useState } from "react";
 
+import { useRouter } from "next/navigation";
+
 import { cn } from "@/utils/shadcn";
 
 import * as z from "zod";
@@ -15,6 +17,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 import { categories, visibilityOptions, groupOptions } from "@/utils/constants";
+import { slugify } from "@/utils/string-helpers";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,7 +51,7 @@ const newArticleSchema = z.object({
     .string()
     .min(2, "El título debe contener al menos 2 caracteres")
     .max(512, "Máximos caracteres alcanzados"),
-  image: z
+  imageFile: z
     .array(
       z.object({
         file: z.any(),
@@ -68,13 +71,14 @@ export type newArticleValues = z.infer<typeof newArticleSchema>;
 
 const NewArticleForm: FC = () => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
+  const router = useRouter();
 
   const form = useForm<newArticleValues>({
     resolver: zodResolver(newArticleSchema),
     mode: "onBlur",
     defaultValues: {
       title: "",
-      image: [],
+      imageFile: [],
       body: "",
       category: "noticias",
       date: new Date(),
@@ -83,7 +87,10 @@ const NewArticleForm: FC = () => {
     },
   });
 
-  const { append } = useFieldArray({ name: "image", control: form.control });
+  const { append } = useFieldArray({
+    name: "imageFile",
+    control: form.control,
+  });
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     //Load file data into setPreview to display image preview on drop
@@ -91,7 +98,7 @@ const NewArticleForm: FC = () => {
     file.onload = () => setPreview(file.result);
     file.readAsDataURL(acceptedFiles[0]);
 
-    //Append file to image[] field
+    //Append file to imageFile[] field
     acceptedFiles.map((file) => {
       return append({ file: file });
     });
@@ -105,19 +112,48 @@ const NewArticleForm: FC = () => {
   });
 
   const onSubmit = async (values: newArticleValues) => {
-    // const submittedImage: File = values.image[0].file;
-    console.log(values.image);
-    console.log(JSON.stringify(values));
+    const submittedImage: File = values.imageFile.pop()?.file;
+    const imageData = new FormData();
+    imageData.append("image", submittedImage);
 
-    await fetch("http://localhost:3000/api/post", {
+    const isHidden = values.visibility === "hidden" ? true : false;
+    const slug = slugify(values.title);
+    let img_url = "";
+
+    await fetch("https://www.lacanica.ec/api/upload-image", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
+      body: imageData,
     })
-      .then((r) => console.log(r.json(), "Form enviado con éxito"))
+      .then((r) => r.json())
+      .then((data) => {
+        img_url = data.img_url;
+      });
+    // .catch((e) => console.log(e));
+
+    const newArticle = {
+      title: values.title,
+      body: values.body,
+      category: values.category,
+      date: values.date,
+      hidden: isHidden,
+      kind: values.group,
+      img_url: img_url,
+      slug: slug,
+    };
+
+    await fetch("http://www.lacanica.ec/api/post", {
+      method: "POST",
+      body: JSON.stringify(newArticle),
+    })
+      .then((r) => r.json())
+      .then((data) => console.log(data))
       .catch((e) => console.log(e));
+
+    router.refresh();
+    router.push("/admin");
   };
 
   return (
@@ -149,7 +185,7 @@ const NewArticleForm: FC = () => {
 
         <FormField
           control={form.control}
-          name="image"
+          name="imageFile"
           render={() => (
             <FormItem>
               <FormLabel className="text-3xl" htmlFor="newArticleBanner">
@@ -170,7 +206,7 @@ const NewArticleForm: FC = () => {
                   )}
                   <FaImage
                     className={`text-9xl ${
-                      form.formState.errors.image && "text-destructive"
+                      form.formState.errors.imageFile && "text-destructive"
                     } ${preview ? "hidden" : "block"}`}
                   />
                   <Input
@@ -183,8 +219,8 @@ const NewArticleForm: FC = () => {
                   ) : (
                     <p>Da click o arrastra una imagen para subirla</p>
                   )}
-                  {form.formState.errors.image && (
-                    <p className="text-destructive">{`${form.formState.errors.image.message}`}</p>
+                  {form.formState.errors.imageFile && (
+                    <p className="text-destructive">{`${form.formState.errors.imageFile.message}`}</p>
                   )}
                 </div>
               </FormControl>
