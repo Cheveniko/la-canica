@@ -144,7 +144,7 @@ const NewArticleForm: FC = () => {
       slug: slug,
     };
 
-    await fetch("http://www.lacanica.ec/api/post", {
+    await fetch("https://www.lacanica.ec/api/post", {
       method: "POST",
       body: JSON.stringify(newArticle),
     })
