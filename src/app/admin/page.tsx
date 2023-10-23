@@ -1,6 +1,8 @@
 import AllArticlesContainer from "@/components/AllArticlesContainer";
 import NewArticleButton from "@/components/buttons/NewArticleButton";
 
+export const dynamic = "force-dynamic";
+
 function AdminPage() {
   return (
     <div>
