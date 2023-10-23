@@ -1,23 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Article } from "@/models/Article";
-import { IArticle } from "@/models/Article";
 
-import { newArticleValues } from "@/components/forms/NewArticleForm";
+import { connectDB } from "@/utils/mongoose";
 
 export async function POST(req: NextRequest) {
   try {
-    const data: newArticleValues = await req.json();
+    const data = await req.json();
     console.log(data);
-    // const body: newArticleValues = data.body;
 
-    // const submittedImage: File = data.image[0].file;
+    await connectDB();
+    const newArticle = new Article(data);
+    const savedArticle = await newArticle.save();
 
-    // const newArticle = new Article(data);
-    // const savedArticle = await newArticle.save();
+    console.log(savedArticle);
 
-    // return NextResponse.json(savedArticle);
+    return NextResponse.json({
+      message: "Articulo subido exitosamente",
+      body: savedArticle,
+      status: 200,
+    });
   } catch (error: any) {
-    return NextResponse.json(error.message, {
+    console.log(error);
+    return NextResponse.json({
+      message: error.message,
       status: 400,
     });
   }
