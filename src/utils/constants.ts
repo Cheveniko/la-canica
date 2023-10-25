@@ -1,4 +1,9 @@
-export const categories = [
+type FormOptions = {
+  value: string;
+  label: string;
+};
+
+export const categories: FormOptions[] = [
   { value: "ecuador", label: "Ecuador" },
   { value: "elecciones", label: "Elecciones" },
   { value: "noticias", label: "Noticias" },
@@ -7,12 +12,12 @@ export const categories = [
   { value: "uncategorized", label: "Sin Categoría" },
 ];
 
-export const visibilityOptions = [
+export const visibilityOptions: FormOptions[] = [
   { value: "visible", label: "Público" },
   { value: "hidden", label: "Oculto" },
 ];
 
-export const groupOptions = [
+export const groupOptions: FormOptions[] = [
   { value: "main", label: "Principal" },
   { value: "trending", label: "Tendencias" },
   { value: "news", label: "Noticias" },

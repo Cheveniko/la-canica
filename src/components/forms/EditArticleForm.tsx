@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
@@ -69,23 +69,47 @@ const newArticleSchema = z.object({
 
 export type newArticleValues = z.infer<typeof newArticleSchema>;
 
-const NewArticleForm: FC = () => {
+type EditArticleFormProps = {
+  slug: string;
+};
+
+const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
+  const [category, setCategory] = useState("");
+  const [visibility, setVisibility] = useState("");
+  const [group, setGroup] = useState("");
   const router = useRouter();
 
   const form = useForm<newArticleValues>({
     resolver: zodResolver(newArticleSchema),
-    mode: "onBlur",
     defaultValues: {
       title: "",
       imageFile: [],
       body: "",
-      category: "noticias",
+      category: "quito",
       date: new Date(),
       visibility: "visible",
       group: "main",
     },
   });
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/post/${slug}`)
+      .then((r) => r.json())
+      .then((data) => {
+        console.log(data);
+        setPreview(data.img_url);
+        setCategory(data.category);
+        setGroup(data.kind);
+        data.hidden === false
+          ? setVisibility("visible")
+          : setVisibility("hidden");
+        form.reset({
+          title: data.title,
+          body: data.body,
+        });
+      });
+  }, [form, slug]);
 
   const { append } = useFieldArray({
     name: "imageFile",
@@ -123,11 +147,11 @@ const NewArticleForm: FC = () => {
     const slug = slugify(values.title);
     let img_url = "";
 
-    await fetch("https://www.lacanica.ec/api/upload-image", {
+    await fetch("http://localhost:3000/api/upload-image", {
       method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
       body: imageData,
     })
       .then((r) => r.json())
@@ -147,11 +171,11 @@ const NewArticleForm: FC = () => {
       slug: slug,
     };
 
-    await fetch("https://www.lacanica.ec/api/post", {
+    await fetch("http://localhost:3000/api/post", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
       body: JSON.stringify(newArticle),
     })
       .then((r) => r.json())
@@ -159,8 +183,10 @@ const NewArticleForm: FC = () => {
       .catch((e) => console.log(e));
 
     router.refresh();
-    router.push("/admin");
+    // router.push("/admin");
   };
+
+  console.log("ola");
 
   return (
     <Form {...form}>
@@ -256,7 +282,8 @@ const NewArticleForm: FC = () => {
                 <FormLabel className="text-xl">Categoría</FormLabel>
                 <Select
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  // defaultValue={field.value}
+                  value={category}
                 >
                   <FormControl className="w-40">
                     <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
@@ -322,10 +349,7 @@ const NewArticleForm: FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xl">Visibilidad</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} value={visibility}>
                   <FormControl className="w-40">
                     <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
                       <SelectValue />
@@ -349,10 +373,7 @@ const NewArticleForm: FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xl">Grupo</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} value={group}>
                   <FormControl className="w-40">
                     <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
                       <SelectValue />
@@ -376,11 +397,11 @@ const NewArticleForm: FC = () => {
           type="submit"
           disabled={form.formState.isSubmitting}
         >
-          Subir Artículo
+          Guardar cambios
         </Button>
       </form>
     </Form>
   );
 };
 
-export default NewArticleForm;
+export default EditArticleForm;
