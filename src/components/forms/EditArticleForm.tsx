@@ -173,7 +173,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
       slug: newSlug,
     };
 
-    await fetch(`http://localhost:3000/api/articles/${slug}`, {
+    await fetch(`https://www.lacanica.ec/api/articles/${slug}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
