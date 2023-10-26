@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { FC, useCallback, useEffect, useRef, useState } from "react";
@@ -51,13 +52,12 @@ const newArticleSchema = z.object({
     .string()
     .min(2, "El título debe contener al menos 2 caracteres")
     .max(512, "Máximos caracteres alcanzados"),
-  imageFile: z
-    .array(
-      z.object({
-        file: z.any(),
-      })
-    )
-    .nonempty("La imagen es requerida"),
+  imageFile: z.array(
+    z.object({
+      file: z.any(),
+    })
+  ),
+
   body: z
     .string()
     .min(2, "El cuerpo del artículo debe contener al menos 2 caracteres"),
@@ -75,9 +75,8 @@ type EditArticleFormProps = {
 
 const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
-  const [category, setCategory] = useState("");
-  const [visibility, setVisibility] = useState("");
-  const [group, setGroup] = useState("");
+  // const [imgUrl, setImgUrl] = useState("");
+  const imgUrl = useRef("");
   const router = useRouter();
 
   const form = useForm<newArticleValues>({
@@ -86,27 +85,27 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
       title: "",
       imageFile: [],
       body: "",
-      category: "quito",
+      category: "",
       date: new Date(),
-      visibility: "visible",
-      group: "main",
+      visibility: "",
+      group: "",
     },
   });
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/post/${slug}`)
+    fetch(`https://www.lacanica.ec/api/articles/${slug}`)
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
         setPreview(data.img_url);
-        setCategory(data.category);
-        setGroup(data.kind);
-        data.hidden === false
-          ? setVisibility("visible")
-          : setVisibility("hidden");
+        imgUrl.current = data.img_url;
         form.reset({
           title: data.title,
           body: data.body,
+          category: data.category,
+          date: new Date(data.date),
+          visibility: data.hidden ? "hidden" : "visible",
+          group: data.kind,
         });
       });
   }, [form, slug]);
@@ -144,21 +143,24 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
     imageData.append("image", submittedImage);
 
     const isHidden = values.visibility === "hidden" ? true : false;
-    const slug = slugify(values.title);
-    let img_url = "";
+    const newSlug = slugify(values.title);
 
-    await fetch("http://localhost:3000/api/upload-image", {
-      method: "POST",
-      // headers: {
-      //   "Content-Type": "multipart/form-data",
-      // },
-      body: imageData,
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        img_url = data.img_url;
-      });
-    // .catch((e) => console.log(e));
+    console.log(submittedImage);
+
+    if (submittedImage) {
+      await fetch("https://www.lacanica.ec/api/upload-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: imageData,
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          imgUrl.current = data.img_url;
+        });
+      // .catch((e) => console.log(e));
+    }
 
     const newArticle = {
       title: values.title,
@@ -167,27 +169,26 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
       date: values.date,
       hidden: isHidden,
       kind: values.group,
-      img_url: img_url,
-      slug: slug,
+      img_url: imgUrl.current,
+      slug: newSlug,
     };
 
-    await fetch("http://localhost:3000/api/post", {
-      method: "POST",
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
+    await fetch(`http://localhost:3000/api/articles/${slug}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(newArticle),
     })
       .then((r) => r.json())
-      .then((data) => console.log(data))
-      .catch((e) => console.log(e));
+      .then((data) => console.log(data));
+    // .catch((e) => console.log(e));
 
     router.refresh();
-    // router.push("/admin");
+    // router.push(`/admin/edit/${newSlug}`);
   };
-
+  console.log(imgUrl.current);
   console.log("ola");
-
   return (
     <Form {...form}>
       <form
@@ -280,11 +281,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xl">Categoría</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  // defaultValue={field.value}
-                  value={category}
-                >
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl className="w-40">
                     <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
                       <SelectValue />
@@ -349,7 +346,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xl">Visibilidad</FormLabel>
-                <Select onValueChange={field.onChange} value={visibility}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl className="w-40">
                     <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
                       <SelectValue />
@@ -373,7 +370,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xl">Grupo</FormLabel>
-                <Select onValueChange={field.onChange} value={group}>
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl className="w-40">
                     <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
                       <SelectValue />
