@@ -88,3 +88,8 @@ body {
 main {
   margin-top: 64px;
 }
+
+.modal {
+  width: clamp(50%, 700px, 90%);
+  height: min(50%, 300px);
+}
