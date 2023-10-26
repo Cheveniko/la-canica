@@ -1,9 +1,8 @@
 "use client";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 import Link from "next/link";
 // import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
 
 type LinkArticleProps = {
   slug: string;
