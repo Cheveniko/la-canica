@@ -1,6 +1,7 @@
 "use client";
-import Link from "next/link";
 import { FC } from "react";
+
+import Link from "next/link";
 
 import { FaTrash } from "react-icons/fa6";
 
@@ -12,9 +13,9 @@ const DeleteButton: FC<DeleteButtonProps> = ({ slug }) => {
   return (
     <Link
       href={`/admin/edit/${slug}`}
-      className="w-1/2 py-2 text-slate-400 text-2xl hover:"
+      className="w-1/2 py-2 rounded-r-lg text-slate-400 text-2xl transition-colors ease-in group hover:bg-red-700"
     >
-      <FaTrash className="mx-auto" />
+      <FaTrash className="mx-auto transition-colors ease-in group-hover:text-white" />
     </Link>
   );
 };
