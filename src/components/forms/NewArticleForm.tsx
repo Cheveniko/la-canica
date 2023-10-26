@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { FC, useCallback, useState } from "react";
@@ -147,7 +148,7 @@ const NewArticleForm: FC = () => {
       slug: slug,
     };
 
-    await fetch("https://www.lacanica.ec/api/post", {
+    await fetch("https://www.lacanica.ec/api/articles", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
