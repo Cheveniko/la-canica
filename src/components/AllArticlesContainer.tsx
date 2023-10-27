@@ -21,7 +21,7 @@ const AllArticlesContainer: FC = async () => {
         >
           <div className="flex justify-between mt-4 border border-cyan-400 border-opacity-50 rounded-lg">
             <EditButton slug={article.slug} />
-            <DeleteButton slug={article.slug} />
+            <DeleteButton slug={article.slug} title={article.title} />
           </div>
         </ArticleCard>
       ))}
