@@ -78,6 +78,9 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    future: {
+      hoverOnlyWhenSupported: true,
+    },
   },
   plugins: [require("tailwindcss-animate")],
 };
