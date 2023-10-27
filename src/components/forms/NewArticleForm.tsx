@@ -126,9 +126,9 @@ const NewArticleForm: FC = () => {
 
     await fetch("https://www.lacanica.ec/api/upload-image", {
       method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      // headers: {
+      //   "Content-Type": "multipart/form-data",
+      // },
       body: imageData,
     })
       .then((r) => r.json())
@@ -150,9 +150,9 @@ const NewArticleForm: FC = () => {
 
     await fetch("https://www.lacanica.ec/api/articles", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
       body: JSON.stringify(newArticle),
     })
       .then((r) => r.json())
