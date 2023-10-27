@@ -65,6 +65,7 @@ const newArticleSchema = z.object({
   date: z.date({ required_error: "Selecciona una fecha válida" }),
   visibility: z.string({ required_error: "Selecciona un tipo de visibilidad" }),
   group: z.string({ required_error: "Selecciona el grupo del artículo" }),
+  slug: z.string().min(2, "El link debe contener al menos 2 caracteres"),
 });
 
 export type newArticleValues = z.infer<typeof newArticleSchema>;
@@ -81,6 +82,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
 
   const form = useForm<newArticleValues>({
     resolver: zodResolver(newArticleSchema),
+    mode: "onBlur",
     defaultValues: {
       title: "",
       imageFile: [],
@@ -89,6 +91,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
       date: new Date(),
       visibility: "",
       group: "",
+      slug: "",
     },
   });
 
@@ -106,6 +109,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
           date: new Date(data.date),
           visibility: data.hidden ? "hidden" : "visible",
           group: data.kind,
+          slug: data.slug,
         });
       });
   }, [form, slug]);
@@ -143,12 +147,11 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
     imageData.append("image", submittedImage);
 
     const isHidden = values.visibility === "hidden" ? true : false;
-    const newSlug = slugify(values.title);
 
     console.log(submittedImage);
 
     if (submittedImage) {
-      await fetch("https://www.lacanica.ec/api/upload-image", {
+      await fetch("https://www.lacanica.ec/api/images", {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
@@ -170,7 +173,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
       hidden: isHidden,
       kind: values.group,
       img_url: imgUrl.current,
-      slug: newSlug,
+      slug: values.slug,
     };
 
     await fetch(`https://www.lacanica.ec/api/articles/${slug}`, {
@@ -185,7 +188,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
     // .catch((e) => console.log(e));
 
     router.refresh();
-    // router.push(`/admin/edit/${newSlug}`);
+    router.push(`/admin/edit/${values.slug}`);
   };
   console.log(imgUrl.current);
   console.log("ola");
@@ -389,6 +392,32 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             )}
           />
         </div>
+        <FormField
+          control={form.control}
+          name="slug"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-3xl" htmlFor="slug">
+                Link
+              </FormLabel>
+              <FormControl>
+                <div className="flex">
+                  <Input
+                    className=" bg-cyan-950 w-fit border-r-0 rounded-r-none disabled:placeholder:text-slate-400"
+                    placeholder="www.lacanica.ec/article/"
+                    disabled
+                  />
+                  <Input
+                    type="text"
+                    {...field}
+                    className="placeholder:text-white/30 rounded-l-none"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button
           className="block mx-auto h-auto px-6 py-3 text-xl rounded-xl"
           type="submit"

@@ -124,7 +124,7 @@ const NewArticleForm: FC = () => {
     const slug = slugify(values.title);
     let img_url = "";
 
-    await fetch("https://www.lacanica.ec/api/upload-image", {
+    await fetch("https://www.lacanica.ec/api/images", {
       method: "POST",
       // headers: {
       //   "Content-Type": "multipart/form-data",
@@ -225,7 +225,9 @@ const NewArticleForm: FC = () => {
                   {isDragActive ? (
                     <p>Suelta la imagen!</p>
                   ) : (
-                    <p>Da click o arrastra una imagen para subirla</p>
+                    <p className="text-center">
+                      Da click o arrastra una imagen para subirla
+                    </p>
                   )}
                   {form.formState.errors.imageFile && (
                     <p className="text-destructive">{`${form.formState.errors.imageFile.message}`}</p>
@@ -248,12 +250,12 @@ const NewArticleForm: FC = () => {
             </FormItem>
           )}
         />
-        <div className="flex justify-between items-center p-4 border rounded-md border-slate-400">
+        <div className="md:flex justify-between items-center p-4 border rounded-md border-slate-400">
           <FormField
             control={form.control}
             name="category"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mb-4 md:mb-0">
                 <FormLabel className="text-xl">Categoría</FormLabel>
                 <Select
                   onValueChange={field.onChange}
@@ -280,7 +282,7 @@ const NewArticleForm: FC = () => {
             control={form.control}
             name="date"
             render={({ field }) => (
-              <FormItem className="flex flex-col">
+              <FormItem className="flex flex-col mb-4 md:mb-0">
                 <FormLabel className="text-xl">Fecha</FormLabel>
                 <Popover>
                   <PopoverTrigger
@@ -321,7 +323,7 @@ const NewArticleForm: FC = () => {
             control={form.control}
             name="visibility"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mb-4 md:mb-0">
                 <FormLabel className="text-xl">Visibilidad</FormLabel>
                 <Select
                   onValueChange={field.onChange}
