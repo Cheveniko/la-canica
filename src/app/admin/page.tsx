@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 function AdminPage() {
   return (
     <div>
-      <div className="container mx-auto px-4 lg:flex justify-between items-center">
+      <div className="container mx-auto px-4 md:flex justify-between items-center">
         <h2 className="text-4xl">Todos los artículos</h2>
         <NewArticleButton />
       </div>
