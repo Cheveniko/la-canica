@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Article } from "@/models/Article";
 import { connectDB } from "@/utils/mongoose";
 
+import { deleteImageFromBlobStorage } from "@/utils/blob-storage";
+
 type routeParams = {
   params: Params;
 };
@@ -40,6 +42,13 @@ export async function PUT(req: NextRequest, { params }: routeParams) {
       { new: true }
     );
 
+    if (!updatedArticle) {
+      return NextResponse.json({
+        message: "Article not found",
+        status: 404,
+      });
+    }
+
     return NextResponse.json({
       message: "Artículo actualizado con éxito",
       body: updatedArticle,
@@ -54,8 +63,23 @@ export async function PUT(req: NextRequest, { params }: routeParams) {
 
 export async function DELETE(req: NextRequest, { params }: routeParams) {
   try {
-    const deletedArticle = await Article.findByIdAndRemove(params.slug);
-    return NextResponse.json(deletedArticle);
+    const deletedArticle = await Article.findOneAndRemove({
+      slug: params.slug,
+    });
+
+    if (!deletedArticle) {
+      return NextResponse.json({
+        message: "Article not found",
+        status: 404,
+      });
+    }
+    await deleteImageFromBlobStorage(deletedArticle.img_url);
+
+    return NextResponse.json({
+      message: "Artículo borrado con éxito",
+      body: deletedArticle,
+      status: 200,
+    });
   } catch (error: any) {
     console.error(error);
     return NextResponse.json({ message: error.message });
