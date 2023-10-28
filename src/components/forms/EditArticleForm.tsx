@@ -18,7 +18,6 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 import { categories, visibilityOptions, groupOptions } from "@/utils/constants";
-import { slugify } from "@/utils/string-helpers";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,7 +64,7 @@ const newArticleSchema = z.object({
   date: z.date({ required_error: "Selecciona una fecha válida" }),
   visibility: z.string({ required_error: "Selecciona un tipo de visibilidad" }),
   group: z.string({ required_error: "Selecciona el grupo del artículo" }),
-  slug: z.string().min(2, "El link debe contener al menos 2 caracteres"),
+  slug: z.string().min(2, "El link debe contener al menos 2 caracteres").trim(),
 });
 
 export type newArticleValues = z.infer<typeof newArticleSchema>;
@@ -76,7 +75,6 @@ type EditArticleFormProps = {
 
 const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
-  // const [imgUrl, setImgUrl] = useState("");
   const imgUrl = useRef("");
   const router = useRouter();
 
@@ -190,8 +188,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
     router.refresh();
     router.push(`/admin/edit/${values.slug}`);
   };
-  console.log(imgUrl.current);
-  console.log("ola");
+
   return (
     <Form {...form}>
       <form
@@ -254,7 +251,9 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
                   {isDragActive ? (
                     <p>Suelta la imagen!</p>
                   ) : (
-                    <p>Da click o arrastra una imagen para subirla</p>
+                    <p className="text-center">
+                      Da click o arrastra una imagen para subirla
+                    </p>
                   )}
                   {form.formState.errors.imageFile && (
                     <p className="text-destructive">{`${form.formState.errors.imageFile.message}`}</p>
@@ -277,12 +276,12 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             </FormItem>
           )}
         />
-        <div className="flex justify-between items-center p-4 border rounded-md border-slate-400">
+        <div className="md:flex justify-between items-center p-4 border rounded-md border-slate-400">
           <FormField
             control={form.control}
             name="category"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mb-4 md:mb-0">
                 <FormLabel className="text-xl">Categoría</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl className="w-40">
@@ -306,7 +305,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             control={form.control}
             name="date"
             render={({ field }) => (
-              <FormItem className="flex flex-col">
+              <FormItem className="flex flex-col mb-4 md:mb-0">
                 <FormLabel className="text-xl">Fecha</FormLabel>
                 <Popover>
                   <PopoverTrigger
@@ -347,7 +346,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             control={form.control}
             name="visibility"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mb-4 md:mb-0">
                 <FormLabel className="text-xl">Visibilidad</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl className="w-40">
@@ -401,16 +400,16 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
                 Link
               </FormLabel>
               <FormControl>
-                <div className="flex">
+                <div className="md:flex">
                   <Input
-                    className=" bg-cyan-950 w-fit border-r-0 rounded-r-none disabled:placeholder:text-slate-400"
+                    className=" bg-cyan-950 w-fit md:border-r-0 md:rounded-r-none disabled:placeholder:text-slate-400"
                     placeholder="www.lacanica.ec/article/"
                     disabled
                   />
                   <Input
                     type="text"
                     {...field}
-                    className="placeholder:text-white/30 rounded-l-none"
+                    className="placeholder:text-white/30 mt-2 md:mt-0 md:rounded-l-none"
                   />
                 </div>
               </FormControl>
