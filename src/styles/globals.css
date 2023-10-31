@@ -93,3 +93,18 @@ main {
   width: clamp(50%, 400px, 90%);
   height: min(50%, 200px);
 }
+
+.ProseMirror h2 {
+  @apply text-2xl;
+}
+
+.ProseMirror ul {
+  @apply list-disc px-3 py-2;
+}
+.ProseMirror ol {
+  @apply list-decimal px-3 py-2;
+}
+
+.ProseMirror blockquote {
+  @apply my-4 border-l-4 border-gray-500 bg-gray-800 p-4;
+}
