@@ -3,10 +3,12 @@ import { Article } from "@/models/Article";
 
 import { connectDB } from "@/utils/mongoose";
 
+import sanitizeHtml from "sanitize-html";
+
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    console.log(data);
+    data.body = sanitizeHtml(data.body);
 
     await connectDB();
     const newArticle = new Article(data);

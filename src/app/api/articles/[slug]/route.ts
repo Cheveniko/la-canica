@@ -3,6 +3,7 @@ import { Article } from "@/models/Article";
 import { connectDB } from "@/utils/mongoose";
 
 import { deleteImageFromBlobStorage } from "@/utils/blob-storage";
+import sanitizeHtml from "sanitize-html";
 
 type routeParams = {
   params: Params;
@@ -14,6 +15,7 @@ type Params = {
 
 export async function GET(req: NextRequest, { params }: routeParams) {
   await connectDB();
+
   try {
     const articleFound = await Article.findOne({ slug: params.slug });
     if (!articleFound) {
@@ -36,10 +38,12 @@ export async function PUT(req: NextRequest, { params }: routeParams) {
 
   try {
     const data = await req.json();
+    data.body = sanitizeHtml(data.body);
+
     const updatedArticle = await Article.findOneAndUpdate(
       { slug: params.slug },
       data,
-      { new: true }
+      { new: true },
     );
 
     if (!updatedArticle) {
