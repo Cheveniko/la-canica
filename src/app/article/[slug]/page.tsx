@@ -48,9 +48,9 @@ export default function ArticlePage({ params }: Props) {
         <SideBar />
       </div>
       <div className="container mx-auto px-4">
-        <hr className="border-1 border-gray-200 mt-6 mb-4" />
+        <hr className="border-1 mb-4 mt-6 border-gray-200" />
       </div>
-      <h2 className="text-4xl pb-2 font-bold text-center underline underline-offset-8 decoration-amber-400">
+      <h2 className="pb-2 text-center text-4xl font-bold underline decoration-amber-400 underline-offset-8">
         Más Artículos
       </h2>
       <NewsContainer />

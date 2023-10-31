@@ -8,7 +8,7 @@ const NewArticleButton: FC = () => {
   return (
     <Link
       href="/admin/new"
-      className="flex items-center gap-x-4 w-fit mt-4 md:mt-0 px-4 py-2 bg-amber-300 text-black text-lg rounded-lg hover:bg-amber-400"
+      className="mt-4 flex w-fit items-center gap-x-4 rounded-lg bg-amber-300 px-4 py-2 text-lg text-black hover:bg-amber-400 md:mt-0"
     >
       <FaPlus /> Nuevo Artículo
     </Link>

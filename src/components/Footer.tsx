@@ -7,21 +7,21 @@ import FooterLogo from "../../public/img/bola.png";
 
 const Footer: FC = () => {
   return (
-    <footer className="pt-10 pb-8 bg-gradient-to-b from-cyan-950 to-canica-purple">
-      <div className="container mx-auto px-4 flex items-center">
+    <footer className="bg-gradient-to-b from-cyan-950 to-canica-purple pb-8 pt-10">
+      <div className="container mx-auto flex items-center px-4">
         <Link href="/">
           <Image src={FooterLogo} alt="La Canica" height={150} className="" />
         </Link>
         <div className="ms-8">
-          <h2 className="text-xl md:text-2xl font-normal">
+          <h2 className="text-xl font-normal md:text-2xl">
             Noticias tan falsas que en Ecuador parecen reales 🇪🇨
           </h2>
-          <ul className="hidden sm:flex mt-4 gap-5 text-white">
+          <ul className="mt-4 hidden gap-5 text-white sm:flex">
             <li>
               <Link
                 href="https://instagram.com/lacanica.ec/"
                 target="_blank"
-                className="text-4xl transition-all ease-in duration-300 hover:text-[#E1306C]"
+                className="text-4xl transition-all duration-300 ease-in hover:text-[#E1306C]"
               >
                 <FaInstagram />
               </Link>
@@ -30,7 +30,7 @@ const Footer: FC = () => {
               <Link
                 href="https://www.tiktok.com/@la.canica.ec"
                 target="_blank"
-                className="text-4xl transition-all ease-in duration-300 hover:text-[#FF0050]"
+                className="text-4xl transition-all duration-300 ease-in hover:text-[#FF0050]"
               >
                 <FaTiktok />
               </Link>
@@ -39,24 +39,24 @@ const Footer: FC = () => {
               <Link
                 href="https://x.com/lacanica_ec"
                 target="_blank"
-                className="text-4xl transition-all ease-in duration-300 hover:text-black"
+                className="text-4xl transition-all duration-300 ease-in hover:text-black"
               >
                 <FaXTwitter />
               </Link>
             </li>
           </ul>
-          <p className="hidden sm:inline-block text-lg md:text-xl mt-4">
+          <p className="mt-4 hidden text-lg sm:inline-block md:text-xl">
             &#169; 2023 La Canica - Todos los derechos reservados
           </p>
         </div>
       </div>
       <div className="container mx-auto px-4">
-        <ul className="flex sm:hidden mt-4 gap-5 text-white">
+        <ul className="mt-4 flex gap-5 text-white sm:hidden">
           <li>
             <Link
               href="https://instagram.com/lacanica_ec/"
               target="_blank"
-              className="text-4xl transition-all ease-in duration-300 hover:text-[#E1306C]"
+              className="text-4xl transition-all duration-300 ease-in hover:text-[#E1306C]"
             >
               <FaInstagram />
             </Link>
@@ -65,7 +65,7 @@ const Footer: FC = () => {
             <Link
               href="https://www.tiktok.com/@la.canica.ec"
               target="_blank"
-              className="text-4xl transition-all ease-in duration-300 hover:text-[#FF0050]"
+              className="text-4xl transition-all duration-300 ease-in hover:text-[#FF0050]"
             >
               <FaTiktok />
             </Link>
@@ -74,13 +74,13 @@ const Footer: FC = () => {
             <Link
               href="https://x.com/lacanica_ec"
               target="_blank"
-              className="text-4xl transition-all ease-in duration-300 hover:text-black"
+              className="text-4xl transition-all duration-300 ease-in hover:text-black"
             >
               <FaXTwitter />
             </Link>
           </li>
         </ul>
-        <p className="sm:hidden text-lg md:text-xl mt-4">
+        <p className="mt-4 text-lg sm:hidden md:text-xl">
           &#169; 2023 La Canica - Todos los derechos reservados
         </p>
       </div>

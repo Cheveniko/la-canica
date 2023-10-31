@@ -6,7 +6,9 @@ type ArticleBodyProps = {
 };
 
 const ArticleBody: FC<ArticleBodyProps> = ({ body, style }) => {
-  return <article className={style}>{body}</article>;
+  return (
+    <article className={style} dangerouslySetInnerHTML={{ __html: body }} />
+  );
 };
 
 export default ArticleBody;

@@ -6,8 +6,8 @@ import { FC } from "react";
 const SideBar: FC = async () => {
   const sidebarArticles = await getSidebarArticles();
   return (
-    <div className="lg:w-1/4 my-8 lg:my-0 h-min sticky top-[98px] p-4 border border-slate-950 shadow-sm shadow-slate-950 rounded-2xl">
-      <h2 className="text-3xl lg:text-4xl font-bold text-center underline underline-offset-8 decoration-amber-400">
+    <div className="sticky top-[98px] my-8 h-min rounded-2xl border border-slate-950 p-4 shadow-sm shadow-slate-950 lg:my-0 lg:w-1/4">
+      <h2 className="text-center text-3xl font-bold underline decoration-amber-400 underline-offset-8 lg:text-4xl">
         Tendencias
       </h2>
       {sidebarArticles.map((article, index) => (

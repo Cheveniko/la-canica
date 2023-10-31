@@ -8,7 +8,7 @@ const NewsContainer: FC = async () => {
   const newsArticles = await getNewsArticles();
 
   return (
-    <div className="container mx-auto px-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6">
+    <div className="container mx-auto gap-x-6 px-4 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {newsArticles.map((article, index) => (
         <ArticleCard
           key={index}

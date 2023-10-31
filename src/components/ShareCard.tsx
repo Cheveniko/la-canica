@@ -34,13 +34,13 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
   const twitterHandle: string = "lacanica_ec";
 
   return (
-    <div className="block w-4/5 mx-auto bg-amber-300 rounded-full mt-4 py-2">
-      <ul className="flex justify-evenly items-center text-4xl text-gray-900">
+    <div className="mx-auto mt-4 block w-4/5 rounded-full bg-amber-300 py-2">
+      <ul className="flex items-center justify-evenly text-4xl text-gray-900">
         <li>
           <Link
             href={`https://x.com/intent/tweet?text=${urlTitle}&url=${encodedUrl}&via=${twitterHandle}`}
             target="_blank"
-            className="transition ease-in duration-300 hover:text-black"
+            className="transition duration-300 ease-in hover:text-black"
           >
             <TooltipProvider delayDuration={200}>
               <Tooltip>
@@ -60,7 +60,7 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
           <Link
             href={`https://t.me/share/url?url=${encodedUrl}&text=${urlTitle}`}
             target="_blank"
-            className="transition ease-in duration-300 hover:text-black"
+            className="transition duration-300 ease-in hover:text-black"
           >
             <TooltipProvider delayDuration={200}>
               <Tooltip>
@@ -80,7 +80,7 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
           <Link
             href={`https://api.whatsapp.com/send?text=${encodedUrl} ${urlTitle}`}
             target="_blank"
-            className="transition ease-in duration-300 hover:text-black"
+            className="transition duration-300 ease-in hover:text-black"
           >
             <TooltipProvider delayDuration={200}>
               <Tooltip>
@@ -100,7 +100,7 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
           <Link
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
             target="_blank"
-            className="transition ease-in duration-300 hover:text-black"
+            className="transition duration-300 ease-in hover:text-black"
           >
             <TooltipProvider delayDuration={200}>
               <Tooltip>

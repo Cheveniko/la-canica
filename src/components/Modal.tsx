@@ -54,7 +54,7 @@ const Modal: FC<ModalProps> = ({ handleClose, slug, title }) => {
     <Backdrop onClick={handleClose}>
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        className="modal m-auto py-2 md:py-0 px-8 bg-red-600/80 rounded-xl flex flex-col items-center justify-evenly"
+        className="modal m-auto flex flex-col items-center justify-evenly rounded-xl bg-red-600/80 px-8 py-2 md:py-0"
         variants={dropIn}
         initial="hidden"
         animate="visible"
@@ -71,11 +71,11 @@ const Modal: FC<ModalProps> = ({ handleClose, slug, title }) => {
         </h4>
         <button
           type="button"
-          className="block mx-auto px-4 py-1 text-lg border border-white rounded-md hover:bg-red-800"
+          className="mx-auto block rounded-md border border-white px-4 py-1 text-lg hover:bg-red-800"
           onClick={deleteArticle}
         >
           Borrar
-          <FaTrash className="inline-block ms-2" />
+          <FaTrash className="ms-2 inline-block" />
         </button>
       </motion.div>
     </Backdrop>

@@ -20,7 +20,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({ slug, title }) => {
   return (
     <>
       <motion.button
-        className="w-1/2 py-2 rounded-r-lg text-slate-400 text-2xl transition-colors ease-in group hover:bg-red-700"
+        className="group w-1/2 rounded-r-lg py-2 text-2xl text-slate-400 transition-colors ease-in hover:bg-red-700"
         onClick={() => (modalOpen ? close() : open())}
       >
         <FaTrash className="mx-auto transition-colors ease-in group-hover:text-white" />

@@ -10,7 +10,7 @@ const AllArticlesContainer: FC = async () => {
   const allArticles = await getAllArticles();
 
   return (
-    <div className="container mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6">
+    <div className="container mx-auto grid gap-x-6 px-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {allArticles.map((article, index) => (
         <ArticleCard
           key={index}
@@ -19,7 +19,7 @@ const AllArticlesContainer: FC = async () => {
           bannerHeigth={675}
           type="admin"
         >
-          <div className="flex justify-between mt-4 border border-cyan-400 border-opacity-50 rounded-lg">
+          <div className="mt-4 flex justify-between rounded-lg border border-cyan-400 border-opacity-50">
             <EditButton slug={article.slug} />
             <DeleteButton slug={article.slug} title={article.title} />
           </div>
