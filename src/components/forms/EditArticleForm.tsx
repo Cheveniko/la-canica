@@ -77,7 +77,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
   });
 
   useEffect(() => {
-    fetch(`http://www.lacanica.ec/api/articles/${slug}`)
+    fetch(`https://www.lacanica.ec/api/articles/${slug}`)
       .then((r) => r.json())
       .then((data) => {
         setPreview(data.img_url);
@@ -131,11 +131,11 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
     const isHidden = values.visibility === "hidden" ? true : false;
 
     if (submittedImage) {
-      await fetch("http://www.lacanica.ec/api/images", {
+      await fetch("https://www.lacanica.ec/api/images", {
         method: "POST",
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        // },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
         body: imageData,
       })
         .then((r) => r.json())
@@ -156,11 +156,11 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
       slug: values.slug,
     };
 
-    await fetch(`http://www.lacanica.ec/api/articles/${slug}`, {
+    await fetch(`https://www.lacanica.ec/api/articles/${slug}`, {
       method: "PUT",
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(newArticle),
     })
       .then((r) => r.json())
