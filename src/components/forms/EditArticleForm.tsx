@@ -133,9 +133,9 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
     if (submittedImage) {
       await fetch("http://www.lacanica.ec/api/images", {
         method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        // headers: {
+        //   "Content-Type": "multipart/form-data",
+        // },
         body: imageData,
       })
         .then((r) => r.json())
@@ -158,9 +158,9 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
 
     await fetch(`http://www.lacanica.ec/api/articles/${slug}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
       body: JSON.stringify(newArticle),
     })
       .then((r) => r.json())
