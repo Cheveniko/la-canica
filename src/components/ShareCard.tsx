@@ -42,7 +42,7 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
             target="_blank"
             className="transition duration-300 ease-in hover:text-black"
           >
-            <TooltipProvider delayDuration={200}>
+            <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span>
@@ -62,7 +62,7 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
             target="_blank"
             className="transition duration-300 ease-in hover:text-black"
           >
-            <TooltipProvider delayDuration={200}>
+            <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span>
@@ -82,7 +82,7 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
             target="_blank"
             className="transition duration-300 ease-in hover:text-black"
           >
-            <TooltipProvider delayDuration={200}>
+            <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span>
@@ -102,7 +102,7 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
             target="_blank"
             className="transition duration-300 ease-in hover:text-black"
           >
-            <TooltipProvider delayDuration={200}>
+            <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <span>
@@ -117,7 +117,7 @@ const ShareCard: FC<ShareCardProps> = ({ title, slug }) => {
           </Link>
         </li>
         <li>
-          <TooltipProvider delayDuration={200}>
+          <TooltipProvider delayDuration={100}>
             <Tooltip
               onOpenChange={() =>
                 setTimeout(() => {
