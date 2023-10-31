@@ -7,8 +7,11 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/utils/shadcn";
 
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  editArticleSchema,
+  type editArticleValues,
+} from "@/schemas/forms-schemas";
 
 import { useForm, useFieldArray } from "react-hook-form";
 
@@ -18,6 +21,8 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 import { categories, visibilityOptions, groupOptions } from "@/utils/constants";
+
+import Tiptap from "../Tiptap";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,40 +51,18 @@ import {
 import { CalendarIcon } from "lucide-react";
 import { FaImage } from "react-icons/fa6";
 
-const newArticleSchema = z.object({
-  title: z
-    .string()
-    .min(2, "El título debe contener al menos 2 caracteres")
-    .max(512, "Máximos caracteres alcanzados"),
-  imageFile: z.array(
-    z.object({
-      file: z.any(),
-    })
-  ),
-
-  body: z
-    .string()
-    .min(2, "El cuerpo del artículo debe contener al menos 2 caracteres"),
-  category: z.string({ required_error: "Selecciona una categoría válida" }),
-  date: z.date({ required_error: "Selecciona una fecha válida" }),
-  visibility: z.string({ required_error: "Selecciona un tipo de visibilidad" }),
-  group: z.string({ required_error: "Selecciona el grupo del artículo" }),
-  slug: z.string().min(2, "El link debe contener al menos 2 caracteres").trim(),
-});
-
-export type newArticleValues = z.infer<typeof newArticleSchema>;
-
 type EditArticleFormProps = {
   slug: string;
 };
 
 const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>("");
+  const [isLoading, setIsLoading] = useState(true);
   const imgUrl = useRef("");
   const router = useRouter();
 
-  const form = useForm<newArticleValues>({
-    resolver: zodResolver(newArticleSchema),
+  const form = useForm<editArticleValues>({
+    resolver: zodResolver(editArticleSchema),
     mode: "onBlur",
     defaultValues: {
       title: "",
@@ -94,21 +77,22 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
   });
 
   useEffect(() => {
-    fetch(`https://www.lacanica.ec/api/articles/${slug}`)
+    fetch(`http://www.lacanica.ec/api/articles/${slug}`)
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
         setPreview(data.img_url);
         imgUrl.current = data.img_url;
         form.reset({
           title: data.title,
           body: data.body,
+          imageFile: [],
           category: data.category,
           date: new Date(data.date),
           visibility: data.hidden ? "hidden" : "visible",
           group: data.kind,
           slug: data.slug,
         });
+        setIsLoading(false);
       });
   }, [form, slug]);
 
@@ -129,7 +113,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
         return append({ file: file });
       });
     },
-    [append]
+    [append],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -139,17 +123,15 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
     accept: { "image/*": [".png", ".jpg", ".jpeg"] },
   });
 
-  const onSubmit = async (values: newArticleValues) => {
+  const onSubmit = async (values: editArticleValues) => {
     const submittedImage: File = values.imageFile.pop()?.file;
     const imageData = new FormData();
     imageData.append("image", submittedImage);
 
     const isHidden = values.visibility === "hidden" ? true : false;
 
-    console.log(submittedImage);
-
     if (submittedImage) {
-      await fetch("https://www.lacanica.ec/api/images", {
+      await fetch("http://www.lacanica.ec/api/images", {
         method: "POST",
         headers: {
           "Content-Type": "multipart/form-data",
@@ -174,7 +156,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
       slug: values.slug,
     };
 
-    await fetch(`https://www.lacanica.ec/api/articles/${slug}`, {
+    await fetch(`http://www.lacanica.ec/api/articles/${slug}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -189,11 +171,15 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
     router.push(`/admin/edit/${values.slug}`);
   };
 
+  if (isLoading) {
+    return "Cargando...";
+  }
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="bg-cyan-900 rounded-xl px-8 py-4 space-y-8"
+        className="space-y-8 rounded-xl bg-cyan-900 px-8 py-4"
       >
         <FormField
           control={form.control}
@@ -208,14 +194,13 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
                   placeholder="Joven va a votar y se encuentra con su papá"
                   type="text"
                   {...field}
-                  className="placeholder:text-white/30 text-lg"
+                  className="text-lg placeholder:text-white/30"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="imageFile"
@@ -228,8 +213,8 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
                 <div
                   {...getRootProps()}
                   className={`flex flex-col gap-2 ${
-                    preview ? "pt-0 pb-2" : "py-4"
-                  } items-center border border-slate-400 rounded-md cursor-pointer`}
+                    preview ? "pb-2 pt-0" : "py-4"
+                  } cursor-pointer items-center rounded-md border border-slate-400`}
                 >
                   {preview && (
                     <img
@@ -270,13 +255,13 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             <FormItem>
               <FormLabel className="text-3xl">Cuerpo del Artículo</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Tiptap onChange={field.onChange} content={field.value} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="md:flex justify-between items-center p-4 border rounded-md border-slate-400">
+        <div className="items-center justify-between rounded-md border border-slate-400 p-4 md:flex">
           <FormField
             control={form.control}
             name="category"
@@ -285,7 +270,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
                 <FormLabel className="text-xl">Categoría</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl className="w-40">
-                    <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
+                    <SelectTrigger className="border-slate-400 transition-colors hover:border-slate-300">
                       <SelectValue />
                     </SelectTrigger>
                   </FormControl>
@@ -305,11 +290,11 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
             control={form.control}
             name="date"
             render={({ field }) => (
-              <FormItem className="flex flex-col mb-4 md:mb-0">
+              <FormItem className="mb-4 flex flex-col md:mb-0">
                 <FormLabel className="text-xl">Fecha</FormLabel>
                 <Popover>
                   <PopoverTrigger
-                    className="bg-transparent border-slate-400 hover:bg-transparent hover:text-white hover:border-slate-300 transition-colors"
+                    className="border-slate-400 bg-transparent transition-colors hover:border-slate-300 hover:bg-transparent hover:text-white"
                     asChild
                   >
                     <FormControl>
@@ -317,7 +302,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
                         variant={"outline"}
                         className={cn(
                           "w-[240px] pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
+                          !field.value && "text-muted-foreground",
                         )}
                       >
                         {field.value ? (
@@ -350,7 +335,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
                 <FormLabel className="text-xl">Visibilidad</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl className="w-40">
-                    <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
+                    <SelectTrigger className="border-slate-400 transition-colors hover:border-slate-300">
                       <SelectValue />
                     </SelectTrigger>
                   </FormControl>
@@ -374,7 +359,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
                 <FormLabel className="text-xl">Grupo</FormLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl className="w-40">
-                    <SelectTrigger className="border-slate-400 hover:border-slate-300 transition-colors">
+                    <SelectTrigger className="border-slate-400 transition-colors hover:border-slate-300">
                       <SelectValue />
                     </SelectTrigger>
                   </FormControl>
@@ -402,14 +387,14 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
               <FormControl>
                 <div className="md:flex">
                   <Input
-                    className=" bg-cyan-950 w-fit md:border-r-0 md:rounded-r-none disabled:placeholder:text-slate-400"
+                    className=" w-fit bg-cyan-950 disabled:placeholder:text-slate-400 md:rounded-r-none md:border-r-0"
                     placeholder="www.lacanica.ec/article/"
                     disabled
                   />
                   <Input
                     type="text"
                     {...field}
-                    className="placeholder:text-white/30 mt-2 md:mt-0 md:rounded-l-none"
+                    className="mt-2 placeholder:text-white/30 md:mt-0 md:rounded-l-none"
                   />
                 </div>
               </FormControl>
@@ -418,7 +403,7 @@ const EditArticleForm: FC<EditArticleFormProps> = ({ slug }) => {
           )}
         />
         <Button
-          className="block mx-auto h-auto px-6 py-3 text-xl rounded-xl"
+          className="mx-auto block h-auto rounded-xl px-6 py-3 text-xl"
           type="submit"
           disabled={form.formState.isSubmitting}
         >
