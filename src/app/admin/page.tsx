@@ -1,4 +1,4 @@
-import AllArticlesContainer from "@/components/AllArticlesContainer";
+import AllArticlesContainer from "@/components/articles/AllArticlesContainer";
 import NewArticleButton from "@/components/buttons/NewArticleButton";
 
 export const dynamic = "force-dynamic";

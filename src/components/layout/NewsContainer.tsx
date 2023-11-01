@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import ArticleCard from "./ArticleCard";
+import ArticleCard from "../articles/ArticleCard";
 
 import { getNewsArticles } from "@/utils/get-articles";
 

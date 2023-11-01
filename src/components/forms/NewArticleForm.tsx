@@ -21,7 +21,7 @@ import { es } from "date-fns/locale";
 import { categories, visibilityOptions, groupOptions } from "@/utils/constants";
 import { slugify } from "@/utils/string-helpers";
 
-import Tiptap from "../Tiptap";
+import Tiptap from "../tiptap/Tiptap";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

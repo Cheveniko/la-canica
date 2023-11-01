@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import ArticleCard from "./ArticleCard";
-import EditButton from "./buttons/EditButton";
-import DeleteButton from "./buttons/DeleteButton";
+import EditButton from "../buttons/EditButton";
+import DeleteButton from "../buttons/DeleteButton";
 
 import { getAllArticles } from "@/utils/get-articles";
 

@@ -1,8 +1,8 @@
 import { Metadata, ResolvingMetadata } from "next";
 
-import MainArticle from "@/components/MainArticle";
-import NewsContainer from "@/components/NewsContainer";
-import SideBar from "@/components/Sidebar";
+import MainArticle from "@/components/articles/MainArticle";
+import NewsContainer from "@/components/layout/NewsContainer";
+import SideBar from "@/components/layout/Sidebar";
 
 import { getMainArticle } from "@/utils/get-articles";
 

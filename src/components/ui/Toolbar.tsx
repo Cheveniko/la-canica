@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 import { type Editor } from "@tiptap/react";
 
-import { Toggle } from "./ui/toggle";
+import { Toggle } from "./toggle";
 
 import {
   Bold,

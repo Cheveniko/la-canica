@@ -1,9 +1,11 @@
 import { FC } from "react";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+
 import { FaInstagram, FaXTwitter, FaTiktok } from "react-icons/fa6";
-import FooterLogo from "../../public/img/bola.png";
+
+import FooterLogo from "../../../public/img/bola.png";
 
 const Footer: FC = () => {
   return (

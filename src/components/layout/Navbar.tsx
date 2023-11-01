@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { FaInstagram, FaXTwitter, FaTiktok, FaUser } from "react-icons/fa6";
 
-import HeaderLogo from "../../public/img/header_logo.png";
+import HeaderLogo from "../../../public/img/header_logo.png";
 
 const Navbar: FC = () => {
   return (
@@ -43,15 +43,15 @@ const Navbar: FC = () => {
                 <FaXTwitter />
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link
                 href="/login"
                 target="_self"
-                className="text-3xl transition-all ease-in duration-300 hover:text-[#E1306C]"
+                className="text-3xl transition-all duration-300 ease-in hover:text-amber-400"
               >
                 <FaUser />
               </Link>
-            </li> */}
+            </li>
           </ul>
         </div>
       </nav>

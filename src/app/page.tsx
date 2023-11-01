@@ -1,6 +1,6 @@
-import Sidebar from "@/components/Sidebar";
-import Hero from "@/components/Hero";
-import NewsContainer from "@/components/NewsContainer";
+import Sidebar from "@/components/layout/Sidebar";
+import Hero from "@/components/layout/Hero";
+import NewsContainer from "@/components/layout/NewsContainer";
 
 export const dynamic = "force-dynamic";
 

@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { FaTrash } from "react-icons/fa6";
-import Modal from "../Modal";
+import Modal from "../ui/Modal";
 
 type DeleteButtonProps = {
   slug: string;

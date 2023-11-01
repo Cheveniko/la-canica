@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 import Radnika from "next/font/local";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 import "../styles/globals.css";
 

@@ -4,7 +4,7 @@ import { FC } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
-import Toolbar from "./Toolbar";
+import Toolbar from "../ui/Toolbar";
 
 type TiptapProps = {
   onChange: (richText: string) => void;

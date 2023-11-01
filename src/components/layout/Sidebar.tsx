@@ -1,4 +1,4 @@
-import ArticleCard from "./ArticleCard";
+import ArticleCard from "../articles/ArticleCard";
 
 import { getSidebarArticles } from "@/utils/get-articles";
 import { FC } from "react";
