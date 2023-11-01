@@ -1,16 +1,15 @@
-// import LinkArticle from "@/components/LinkArticle";
-import LoginCard from "@/components/LoginCard";
+import { FC } from "react";
 
-function LoginPage() {
+import Image from "next/image";
+
+import LoginCard from "@/components/login/LoginCard";
+
+const LoginPage: FC = () => {
   return (
-    <main className="bg-cyan-950 py-4">
-      <div className="container mx-auto">
-        <h1>Login</h1>
-        <LoginCard />
-        {/* <LinkArticle /> */}
-      </div>
-    </main>
+    <div className="flex h-screen items-center bg-gradient-to-br from-[#191654] to-[#43C6AC]">
+      <LoginCard />
+    </div>
   );
-}
+};
 
 export default LoginPage;
