@@ -7,15 +7,22 @@ import { FaInstagram, FaXTwitter, FaTiktok, FaUser } from "react-icons/fa6";
 
 import HeaderLogo from "../../../public/img/header_logo.png";
 
-const Navbar: FC = () => {
+type NavbarProps = {
+  variant: string;
+};
+
+const Navbar: FC<NavbarProps> = ({ variant }) => {
+  let background = "bg-gradient-to-b from-cyan-700 to-cyan-950";
+  if (variant === "transparent") background = "bg-transparent";
+
   return (
     <header>
-      <nav className="fixed top-0 z-20 w-full bg-gradient-to-b from-cyan-700 to-cyan-950 pb-2 pt-4">
+      <nav className={`fixed top-0 z-20 w-full ${background} pb-2 pt-4`}>
         <div className="container mx-auto flex items-center justify-between px-4">
           <Link href="/">
             <Image src={HeaderLogo} alt="La Canica Ec" height={40} />
           </Link>
-          <ul className="flex gap-5 text-white">
+          <ul className="flex gap-x-2 text-white md:gap-x-5">
             <li>
               <Link
                 href="https://instagram.com/lacanica.ec/"
