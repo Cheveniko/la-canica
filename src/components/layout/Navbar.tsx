@@ -1,7 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 import { FC } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
+
+import { getServerSession } from "next-auth";
 
 import { FaInstagram, FaXTwitter, FaTiktok, FaUser } from "react-icons/fa6";
 
@@ -11,10 +14,11 @@ type NavbarProps = {
   variant: string;
 };
 
-const Navbar: FC<NavbarProps> = ({ variant }) => {
+const Navbar: FC<NavbarProps> = async ({ variant }) => {
   let background = "bg-gradient-to-b from-cyan-700 to-cyan-950";
   if (variant === "transparent") background = "bg-transparent";
 
+  const session = await getServerSession();
   return (
     <header>
       <nav className={`fixed top-0 z-20 w-full ${background} pb-2 pt-4`}>
@@ -50,15 +54,28 @@ const Navbar: FC<NavbarProps> = ({ variant }) => {
                 <FaXTwitter />
               </Link>
             </li>
-            <li>
-              <Link
-                href="/login"
-                target="_self"
-                className="text-3xl transition-all duration-300 ease-in hover:text-amber-400"
-              >
-                <FaUser />
-              </Link>
-            </li>
+            {/* {session ? (
+              <div>
+                <Link href="/profile">
+                  <img
+                    src={session.user?.image!}
+                    alt="Foto de perfil"
+                    width={30}
+                    height={30}
+                  />
+                </Link>
+              </div>
+            ) : (
+              <li>
+                <Link
+                  href="/login"
+                  target="_self"
+                  className="text-3xl transition-all duration-300 ease-in hover:text-amber-400"
+                >
+                  <FaUser />
+                </Link>
+              </li>
+            )} */}
           </ul>
         </div>
       </nav>
