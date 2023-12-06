@@ -9,7 +9,7 @@ export const newArticleFormSchema = z.object({
     .array(
       z.object({
         file: z.any(),
-      })
+      }),
     )
     .nonempty("La imagen es requerida"),
   body: z
@@ -31,7 +31,7 @@ export const editArticleSchema = z.object({
   imageFile: z.array(
     z.object({
       file: z.any(),
-    })
+    }),
   ),
   body: z
     .string()
@@ -44,3 +44,9 @@ export const editArticleSchema = z.object({
 });
 
 export type editArticleValues = z.infer<typeof editArticleSchema>;
+
+export const emailSignInSchema = z.object({
+  email: z.string().email("Ingresa un email válido"),
+});
+
+export type emailSignInValue = z.infer<typeof emailSignInSchema>;
