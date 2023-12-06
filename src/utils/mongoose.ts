@@ -1,16 +1,16 @@
 import { connect, connection } from "mongoose";
 
-const dbConnection = {
-  isConnected: false,
-};
+let dbIsConnected = false;
 
-const mongodbUri = process.env.MONGODB_URI as string;
+const mongodbUri = process.env.MONGODB_URI!;
 
 export const connectDB = async () => {
-  if (dbConnection.isConnected) return;
+  if (dbIsConnected) return;
 
-  await connect(mongodbUri);
-  // dbConnection.isConnected = db.connections[0].readyState;
+  const db = await connect(mongodbUri);
+  db.connections[0].readyState === 1
+    ? (dbIsConnected = true)
+    : (dbIsConnected = false);
 };
 
 connection.on("connected", () => {
