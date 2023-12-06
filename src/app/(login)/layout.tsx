@@ -4,6 +4,8 @@ import Radnika from "next/font/local";
 
 import Navbar from "@/components/layout/Navbar";
 
+import NextAuthProvider from "@/components/providers/NextAuthProvider";
+
 import "../../styles/globals.css";
 
 const radnika = Radnika({
@@ -35,8 +37,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={radnika.className}>
-        <Navbar variant="transparent" />
-        {children}
+        <NextAuthProvider>
+          <Navbar variant="transparent" />
+          {children}
+        </NextAuthProvider>
       </body>
     </html>
   );
