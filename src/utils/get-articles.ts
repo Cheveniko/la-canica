@@ -2,8 +2,7 @@ import { cache } from "react";
 
 import { connectDB } from "./mongoose";
 
-import { Article } from "@/models/Article";
-import { IArticle } from "@/models/Article";
+import { Article, IArticle } from "@/models/Article";
 
 export const getHeroArticle = cache(async () => {
   await connectDB();
