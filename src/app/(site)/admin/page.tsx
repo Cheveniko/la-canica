@@ -1,9 +1,8 @@
 import AllArticlesContainer from "@/components/articles/AllArticlesContainer";
 import NewArticleButton from "@/components/buttons/NewArticleButton";
-
 export const dynamic = "force-dynamic";
 
-function AdminPage() {
+async function AdminPage() {
   return (
     <div>
       <div className="container mx-auto items-center justify-between px-4 md:flex">
