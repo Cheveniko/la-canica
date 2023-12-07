@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 import Radnika from "next/font/local";
 
@@ -39,6 +40,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6987597403785360"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        ></Script>
+      </head>
       <body className={radnika.className}>
         <NextAuthProvider>
           <Navbar variant="color" />
