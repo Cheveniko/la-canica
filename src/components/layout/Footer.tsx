@@ -48,7 +48,7 @@ const Footer: FC = () => {
             </li>
           </ul>
           <p className="mt-4 hidden text-lg sm:inline-block md:text-xl">
-            &#169; 2023 La Canica - Todos los derechos reservados
+            &#169; 2024 La Canica - Todos los derechos reservados
           </p>
         </div>
       </div>
