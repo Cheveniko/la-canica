@@ -8,8 +8,11 @@ Medio digital de noticias falsas sobre los acontecimientos del país.
 
 ## Redes
 
-Instagram: https://www.instagram.com/lacanica.ec/ \
-TikTok: https://www.tiktok.com/@la.canica.ec \
-X: https://x.com/lacanica_ec
+Instagram: instagram.com/lacanica.ec/ \
+TikTok: tiktok.com/@la.canica.ec \
+X: x.com/lacanica_ec
 
-Desarrollado con Nextjs: https://nextjs.org/
+## Web
+
+Sitio web: www.lacanica.ec
+Desarrollado con Nextjs: nextjs.org/
